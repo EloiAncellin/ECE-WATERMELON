@@ -21,8 +21,44 @@ export const payInList = [
     {
         id: 1,
         fromName: "My Cool Bank",
-        amount: new Cash(),
+        amount: new Cash(15),
+    },
+    {
+        id: 2,
+        fromName: "My Super Bank",
+        amount: new Cash(150, 64),
+    },
+    {
+        id: 3,
+        fromName: "My Super Bank",
+        amount: new Cash(47),
     }
+]
+
+export const payOutList = [
+    {
+        id: 1,
+        toName: "My Cool Bank",
+        amount: new Cash(7, 64),
+    },
+    {
+        id: 2,
+        toName: "My Super Bank",
+        amount: new Cash(97, 06),
+    }
+]
+
+export const transferList = [
+    {
+        id: 1,
+        toCardId: 2,
+        amount: new Cash(5, 3),
+    },
+    {
+        id: 2,
+        toCardId: 3,
+        amount: new Cash(31),
+    },
 ]
 
 export const cards = [
@@ -34,9 +70,9 @@ export const cards = [
         cardName: "Card1",
         brand: "Mastercard",
         currency: "EUR",
-        payInList: [],
-        payOutList: [],
-        transferList: [],
+        payInList: [payInList[0]],
+        payOutList: [payOutList[0]],
+        transferList: [transferList[0]],
     },
     {
         id: 2,
@@ -46,9 +82,9 @@ export const cards = [
         cardName: "Card2",
         brand: "Mastercard",
         currency: "USD",
-        payInList: [],
-        payOutList: [],
-        transferList: [],
+        payInList: [payInList[1], payInList[2]],
+        payOutList: [payOutList[1]],
+        transferList: [transferList[1]],
     },
     {
         id: 3,
