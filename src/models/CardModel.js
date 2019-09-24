@@ -1,9 +1,9 @@
 export class Card{
     id;
+    ownerId;
+    expiresAt;
     lastFour;
+    cardNumber;
+    cardName;
     brand;
-    expiredAt;
-    userId;
-    cardNumbers;
-    nameCard;
 }
