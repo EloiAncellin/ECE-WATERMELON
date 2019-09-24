@@ -2,6 +2,14 @@ export class Cash{
     amount_int = 0;
     amount_dec = 0;
 
+    constructor(amount_int, amount_dec = 0){
+        this.amount_int = amount_int
+        this.amount_dec = amount_dec
+        if(!this.isValid()){
+            throw "Parameters do not make up a cash value";
+        }
+    }
+
     isValid(){
         if(this.amount_dec >= 0 && this.amount_dec < 100){
             // make sure this.amount_dec is always two digits
