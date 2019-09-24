@@ -50,16 +50,13 @@ export class ApiSimulation{
                 break
             }
         }
-        transfer = new Transfer(transferList.length, user.id, new Cash(amount))
-        transferList.push(transfer)
-
-        for(usr of users){
-            if(usr.email == session.email){
-                user = usr
-                break
-            }
+        if(user == null){
+            return ApiSimulation.failure("could not found user")
         }
 
-        user.transferList.push(transfer)
+        transfer = new Transfer(transferList.length, user.id, new Cash(amount))
+        transferList.push(transfer)
+        session.transferList.push(transfer)
+        return ApiSimulation.success(transfer)
     }
 }
