@@ -29,15 +29,25 @@ export class ApiSimulation{
         return ApiSimulation.failure("user not found, or wrong password")
     }
 
-    static getWallet(userId){
+    static getWallet(session){
         ApiSimulation.wait(1500)
         for(wallet of wallets){
-            if(wallet.userId == userId){
+            if(wallet.userId == session.userId){
                 return ApiSimulation.success(wallet)
             }
         }
         return ApiSimulation.failure("user has no wallet")
     }
 
-    static
+    // static transfer(session, toEmail, amount){
+    //     ApiSimulation.wait(2500)
+    //     user = null
+    //     for(usr of users){
+    //         if(usr.email == toEmail){
+    //             user = usr
+    //             break
+    //         }
+    //     }
+    //     transfer =
+    // }
 }
