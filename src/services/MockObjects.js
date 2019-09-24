@@ -6,11 +6,6 @@ import {Transfer} from './TransferModel.js'
 import {User} from './UserModel.js'
 import {Wallet} from './WalletModel.js'
 
-export users = [
-    new User(1, "toto1@ece.fr", "Toto1", "Tata1", "toto1"),
-    new User(2, "toto2@ece.fr", "Toto2", "Tata2", "toto2"),
-]
-
 export payInList = [
     new PayIn(1, "My Cool Bank", new Cash(15)),
     new PayIn(2, "My Super Bank", new Cash(150, 64)),
@@ -79,6 +74,25 @@ export cards = [
 ]
 
 export wallets = [
-    new Wallet(1, 1, [cards[0], cards[1]]),
-    new Wallet(1, 2, [cards[2]])
+    new Wallet(1, [cards[0], cards[1]]),
+    new Wallet(1, [cards[2]])
+]
+
+export users = [
+    new User({
+        id: 1,
+        email: "toto1@ece.fr",
+        firstName: "Toto1",
+        lastName:"Tata1",
+        password: "toto1",
+        wallet: wallets[0]
+    }),
+    new User({
+        id: 2,
+        email: "toto2@ece.fr",
+        firstName: "Toto2",
+        lastName:"Tata2",
+        password: "toto2",
+        wallet: wallets[1]
+    })
 ]

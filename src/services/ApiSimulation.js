@@ -60,6 +60,6 @@ export class ApiSimulation{
             }
         }
 
-        
+        user.transferList.push(transfer)
     }
 }
