@@ -2,9 +2,14 @@ export class Cash{
     amount_int = 0;
     amount_dec = 0;
 
-    constructor(amount_int, amount_dec = 0){
-        this.amount_int = amount_int
-        this.amount_dec = amount_dec
+    constructor(amount){
+        if(amount instanceof Cash){
+            this.amount_int = amount.amount_int
+            this.amount_dec = amount.amount_dec
+        } else{
+            this.amount_int = Math.floor(amount)
+            this.amount_dec = amount - this.amount_int
+        }
         if(!this.isValid()){
             throw "Parameters do not make up a cash value";
         }
