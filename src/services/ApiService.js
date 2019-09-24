@@ -5,10 +5,6 @@ export class ApiService{
         return ApiSimulation.authenticateUser(email, password)
     }
 
-    getWallet(session){
-        return ApiSimulation.getWallet(session)
-    }
-
     transfer(session, toEmail, amount){
         return ApiSimulation.transfer(session, toEmail, amount)
     }

@@ -11,18 +11,14 @@ export class Cash{
             this.amount_dec = amount - this.amount_int
         }
         if(!this.isValid()){
-            throw "Parameters do not make up a cash value";
+            throw new Error("Parameters do not make up a cash value");
         }
     }
 
     isValid(){
         if(this.amount_dec >= 0 && this.amount_dec < 100){
-            // make sure this.amount_dec is always two digits
-            if(this.amount_dec < 10){
-                this.amount_dec *= 10
-            }
             // make sure amount_int is an int
-            if(this.amount_int == Math.floor(this.amount_int)){
+            if(this.amount_int === Math.floor(this.amount_int)){
                 return true
             }
         }
@@ -39,7 +35,7 @@ export class Cash{
     add(cash){
         if(this.isValid()){
             if(cash instanceof Cash){
-                new_cash = new Cash()
+                var new_cash = new Cash()
                 new_cash.amount_int = this.amount_int + cash.amount_int
                 new_cash.amount_dec = this.amount_dec + cash.amount_dec
                 if(new_cash.amount_dec >= 100){
@@ -55,7 +51,7 @@ export class Cash{
     sub(cash){
         if(this.isValid()){
             if(cash instanceof Cash){
-                new_cash = new Cash()
+                var new_cash = new Cash()
                 new_cash.amount_int = this.amount_int - cash.amount_int
                 new_cash.amount_dec = this.amount_dec - cash.amount_dec
                 return cash
