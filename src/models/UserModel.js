@@ -4,12 +4,14 @@ export class User{
     firstName;
     lastName;
     password;
+    wallet;
 
-    constructor(id, email, firstName, lastName, password){
-        this.id = id
-        this.email = email
-        this.firstName = firstName
-        this.lastName = lastName
-        this.password = password
+    constructor(json){
+        this.id = json.id
+        this.email = json.email
+        this.firstName = json.firstName
+        this.lastName = json.lastName
+        this.password = json.password
+        this.wallet = json.wallet
     }
 }
