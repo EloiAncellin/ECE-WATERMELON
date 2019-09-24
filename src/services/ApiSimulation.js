@@ -1,4 +1,6 @@
-import {users, cards, wallets} from './MockObjects.js'
+import {users, cards, wallets, transferList} from './MockObjects.js'
+import {Transfer} from './TransferModel.js'
+import {Cash} from './CashModel.js'
 
 export class ApiSimulation{
     static wait(ms){
@@ -39,15 +41,25 @@ export class ApiSimulation{
         return ApiSimulation.failure("user has no wallet")
     }
 
-    // static transfer(session, toEmail, amount){
-    //     ApiSimulation.wait(2500)
-    //     user = null
-    //     for(usr of users){
-    //         if(usr.email == toEmail){
-    //             user = usr
-    //             break
-    //         }
-    //     }
-    //     transfer =
-    // }
+    static transfer(session, toEmail, amount){
+        ApiSimulation.wait(2500)
+        user = null
+        for(usr of users){
+            if(usr.email == toEmail){
+                user = usr
+                break
+            }
+        }
+        transfer = new Transfer(transferList.length, user.id, new Cash(amount))
+        transferList.push(transfer)
+
+        for(usr of users){
+            if(usr.email == session.email){
+                user = usr
+                break
+            }
+        }
+
+        
+    }
 }
