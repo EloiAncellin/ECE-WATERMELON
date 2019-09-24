@@ -1,11 +1,11 @@
 import {ApiSimulation} from './ApiSimulation.js'
 
 export class ApiService{
-    authenticateUser(email, password){
-        return ApiSimulation.authenticateUser(email, password)
+    static authenticateUser(email, password){
+        return JSON.parse(ApiSimulation.authenticateUser(email, password))
     }
 
-    transfer(session, toEmail, amount){
-        return ApiSimulation.transfer(session, toEmail, amount)
+    static transfer(session, toEmail, amount){
+        return JSON.parse(ApiSimulation.transfer(session, toEmail, amount))
     }
 }
