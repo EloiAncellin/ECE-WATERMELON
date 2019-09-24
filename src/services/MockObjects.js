@@ -51,12 +51,12 @@ export const payOutList = [
 export const transferList = [
     {
         id: 1,
-        toCardId: 2,
+        toUserId: 1,
         amount: new Cash(5, 3),
     },
     {
         id: 2,
-        toCardId: 3,
+        toUserId: 2,
         amount: new Cash(31),
     },
 ]
