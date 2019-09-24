@@ -1,6 +1,6 @@
 export class Card{
     id;
-    ownerId;
+    userId;
     expiresAt;
     lastFour;
     cardNumber;
