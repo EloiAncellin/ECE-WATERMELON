@@ -1,3 +1,5 @@
+import {Cash} from './CashModel.js'
+
 export const users = [
     {
         id: 1,
@@ -12,6 +14,14 @@ export const users = [
         firstName: "Toto2",
         lastName: "Tata2",
         password: "toto2",
+    }
+]
+
+export const payInList = [
+    {
+        id: 1,
+        fromName: "My Cool Bank",
+        amount: new Cash(),
     }
 ]
 
