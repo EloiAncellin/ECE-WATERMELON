@@ -1,6 +1,5 @@
 export class Transfer{
     id;
-    fromCardId;
-    toCardId;
+    toUserId;
     amount;
 }
