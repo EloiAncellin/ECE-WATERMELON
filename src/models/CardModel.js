@@ -6,4 +6,8 @@ export class Card{
     cardNumber;
     cardName;
     brand;
+    currency;
+    payInList;
+    payOutList;
+    transferList;
 }

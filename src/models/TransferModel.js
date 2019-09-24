@@ -1,7 +1,6 @@
 export class Transfer{
     id;
-    fromWalletId;
-    toWalletId;
+    fromCardId;
+    toCardId;
     amount;
-    currency;
 }
