@@ -1,4 +1,4 @@
-import {users, transferList} from './MockObjects.js'
+import {users, transfers} from './MockObjects.js'
 import {Transfer} from '../models/TransferModel.js'
 import {Cash} from '../models/CashModel.js'
 
@@ -44,9 +44,9 @@ export class ApiSimulation{
             return ApiSimulation.failure("could not found user")
         }
 
-        var transfer = new Transfer(transferList.length, user.id, new Cash(amount))
-        transferList.push(transfer)
-        session.transferList.push(transfer)
+        var transfer = new Transfer(transfers.length, user.id, new Cash(amount))
+        transfers.push(transfer)
+        session.transfers.push(transfer)
         return ApiSimulation.success(transfer)
     }
 }

@@ -1,9 +1,9 @@
 export class Wallet{
     id;
-    cardList;
+    cards;
 
-    constructor(id, cardList){
+    constructor(id, cards){
         this.id = id
-        this.cardList = cardList
+        this.cards = cards
     }
 }
