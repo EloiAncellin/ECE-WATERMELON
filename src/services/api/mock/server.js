@@ -25,7 +25,7 @@ function failure(error){
 
 // GET REQUESTS
 
-export function mockGetUserWallet(userId){
+export function getUserWallet(userId){
     wait(100)
 
     for(let wallet of wallets){
@@ -37,10 +37,10 @@ export function mockGetUserWallet(userId){
     return failure("user not found, or has no wallet")
 }
 
-export function mockGetTransfersMade(userId){
+export function getTransfersMade(userId){
     wait(100)
 
-    const walletRes = JSON.parse(mockGetUserWallet(userId))
+    const walletRes = JSON.parse(getUserWallet(userId))
 
     if(walletRes.status === "success"){
         const wallet = walletRes.result
@@ -57,10 +57,10 @@ export function mockGetTransfersMade(userId){
     return failure("user not found, or has no wallet")
 }
 
-export function mockGetTransfersReceived(userId){
+export function getTransfersReceived(userId){
     wait(100)
 
-    const walletRes = JSON.parse(mockGetUserWallet(userId))
+    const walletRes = JSON.parse(getUserWallet(userId))
 
     if(walletRes.status === "success"){
         const wallet = walletRes.result
@@ -77,7 +77,47 @@ export function mockGetTransfersReceived(userId){
     return failure("user not found, or has no wallet")
 }
 
-export function mockAuthenticateUser(email, password){
+export function getPayIns(userId){
+    wait(100)
+
+    const walletRes = JSON.parse(getUserWallet(userId))
+
+    if(walletRes.status === "success"){
+        const wallet = walletRes.result
+        let userPayIns = []
+        for(let payIn of payIns){
+            if(payIn.wallet_id === wallet.id){
+                userPayIns.push(payIn)
+            }
+        }
+
+        return success(userPayIns)
+    }
+
+    return failure("user not found, or has no wallet")
+}
+
+export function getPayOuts(userId){
+    wait(100)
+
+    const walletRes = JSON.parse(getUserWallet(userId))
+
+    if(walletRes.status === "success"){
+        const wallet = walletRes.result
+        let userPayOuts = []
+        for(let payOut of payOuts){
+            if(payOut.wallet_id === wallet.id){
+                userPayOuts.push(payOut)
+            }
+        }
+
+        return success(userPayOuts)
+    }
+
+    return failure("user not found, or has no wallet")
+}
+
+export function authenticateUser(email, password){
     wait(500)
 
     for(let user of users){
@@ -91,11 +131,11 @@ export function mockAuthenticateUser(email, password){
 
 // UPDATE REQUESTS
 
-export function mockTransfer(fromUserId, toUserId, amount){
+export function transfer(fromUserId, toUserId, amount){
     wait(500)
 
-    const fromWalletId = JSON.parse(mockGetUserWallet(fromUserId))
-    const toWalletId = JSON.parse(mockGetUserWallet(toUserId))
+    const fromWalletId = JSON.parse(getUserWallet(fromUserId))
+    const toWalletId = JSON.parse(getUserWallet(toUserId))
 
     if(fromWalletId.status === "success" && toWalletId.status === "success"){
         const newId = transfers[transfers.size - 1].id + 1
