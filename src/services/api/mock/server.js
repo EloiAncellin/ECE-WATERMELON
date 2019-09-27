@@ -117,7 +117,7 @@ export function getPayOuts(userId){
     return failure("user not found, or has no wallet")
 }
 
-export function authenticateUser(email, password){
+export function authenticate(email, password){
     wait(500)
 
     for(let user of users){

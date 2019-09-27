@@ -16,8 +16,8 @@ export function getPayOuts(userId){
     return JSON.parse(mock.getPayOuts(userId))
 }
 
-export function authenticateUser(email, password){
-    return JSON.parse(mock.authenticateUser(email, password))
+export function authenticate(email, password){
+    return JSON.parse(mock.authenticate(email, password))
 }
 
 export function transfer(session, toEmail, amount){
