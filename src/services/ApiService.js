@@ -1,4 +1,8 @@
-import {mockAuthenticateUser, mockTransfer} from './api/mock/server.js'
+import {mockGetTransfersMade, mockAuthenticateUser, mockTransfer} from './api/mock/server.js'
+
+export function getTransfersMade(userId){
+    return JSON.parse(mockGetTransfersMade(userId))
+}
 
 export function authenticateUser(email, password){
     return JSON.parse(mockAuthenticateUser(email, password))
