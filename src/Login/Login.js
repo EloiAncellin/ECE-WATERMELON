@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FormErrors } from './FormErrors';
+import { LoginErrors } from './LoginErrors.js';
 import './Form.css';
 
 class Form extends Component {
@@ -58,7 +58,7 @@ class Form extends Component {
       <form className="demoForm">
         <h2>Sign up</h2>
         <div className="panel panel-default">
-          <FormErrors formErrors={this.state.formErrors} />
+          <LoginErrors formErrors={this.state.formErrors} />
         </div>
         <div className={`form-group ${this.errorClass(this.state.formErrors.email)}`}>
           <label htmlFor="email">Email address</label>

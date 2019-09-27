@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const LoginErros = ({formErrors}) =>
+export const LoginErrors = ({formErrors}) =>
   <div className='formErrors'>
     {Object.keys(formErrors).map((fieldName, i) => {
       if(formErrors[fieldName].length > 0){
