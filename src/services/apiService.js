@@ -20,6 +20,6 @@ export function authenticate(email, password){
     return JSON.parse(mock.authenticate(email, password))
 }
 
-export function transfer(session, toEmail, amount){
-    return JSON.parse(mock.transfer(session, toEmail, amount))
+export function transfer(fromUserId, toUserId, amount){
+    return JSON.parse(mock.transfer(fromUserId, toUserId, amount))
 }
