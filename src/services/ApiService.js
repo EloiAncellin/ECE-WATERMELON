@@ -1,11 +1,9 @@
-import {ApiSimulation} from './ApiSimulation.js'
+import './mock/server.js'
 
-export class ApiService{
-    static authenticateUser(email, password){
-        return JSON.parse(ApiSimulation.authenticateUser(email, password))
-    }
+export function authenticateUser(email, password){
+    return JSON.parse(authenticateUser(email, password))
+}
 
-    static transfer(session, toEmail, amount){
-        return JSON.parse(ApiSimulation.transfer(session, toEmail, amount))
-    }
+export function transfer(session, toEmail, amount){
+    return JSON.parse(transfer(session, toEmail, amount))
 }
