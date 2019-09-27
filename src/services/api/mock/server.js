@@ -42,7 +42,7 @@ export function mockGetTransfersMade(userId){
 
     const walletRes = JSON.parse(mockGetUserWallet(userId))
 
-    if(wallet.status === "success"){
+    if(walletRes.status === "success"){
         const wallet = walletRes.result
         let transfersMade = []
         for(let transfer of transfers){
