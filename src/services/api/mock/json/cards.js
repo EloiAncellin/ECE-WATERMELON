@@ -1,4 +1,4 @@
-export const cards = [
+export let cards = [
 	{
 		id: 1,
 		last_four: "1111",

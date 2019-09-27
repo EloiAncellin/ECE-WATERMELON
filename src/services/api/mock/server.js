@@ -138,7 +138,7 @@ export function transfer(fromUserId, toUserId, amount){
     const toWalletId = JSON.parse(getUserWallet(toUserId))
 
     if(fromWalletId.status === "success" && toWalletId.status === "success"){
-        const newId = transfers[transfers.size - 1].id + 1
+        const newId = transfers[transfers.length - 1].id + 1
         const transfer = {
             id: newId,
             from_wallet_id: fromWalletId.result.id,

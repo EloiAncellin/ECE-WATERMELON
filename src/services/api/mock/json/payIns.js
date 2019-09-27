@@ -1,4 +1,4 @@
-export const payIns = [
+export let payIns = [
 	{
 		id: 1,
 		wallet_id: 1,
