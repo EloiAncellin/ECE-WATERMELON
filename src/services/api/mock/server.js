@@ -57,6 +57,26 @@ export function mockGetTransfersMade(userId){
     return failure("user not found, or has no wallet")
 }
 
+export function mockGetTransfersReceived(userId){
+    wait(100)
+
+    const walletRes = JSON.parse(mockGetUserWallet(userId))
+
+    if(walletRes.status === "success"){
+        const wallet = walletRes.result
+        let transfersMade = []
+        for(let transfer of transfers){
+            if(transfer.to_wallet_id === wallet.id){
+                transfersMade.push(transfer)
+            }
+        }
+
+        return success(transfersMade)
+    }
+
+    return failure("user not found, or has no wallet")
+}
+
 export function mockAuthenticateUser(email, password){
     wait(500)
 
