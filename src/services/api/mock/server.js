@@ -1,12 +1,12 @@
-import {users} from './json/User.js';
-import {cards} from './json/Card.js';
-import {wallets} from './json/Wallet.js';
-import {payIns} from './json/PayIn.js';
-import {payOuts} from './json/PayOut.js';
-import {transfers} from './json/Transfer.js';
+import {users} from './json/users.js';
+import {cards} from './json/cards.js';
+import {wallets} from './json/wallets.js';
+import {payIns} from './json/payIns.js';
+import {payOuts} from './json/payOuts.js';
+import {transfers} from './json/transfers.js';
 
 function wait(ms){
-    sleep(ms)
+    //sleep(ms)
 }
 
 function success(result){
@@ -23,7 +23,7 @@ function failure(error){
     })
 }
 
-export function authenticateUser(email, password){
+export function mockAuthenticateUser(email, password){
     wait(500)
 
     for(let user of users){
@@ -35,7 +35,7 @@ export function authenticateUser(email, password){
     return failure("user not found, or wrong password")
 }
 
-export function getUserWallet(userId){
+export function mockGetUserWallet(userId){
     wait(100)
 
     for(let wallet of wallets){
@@ -47,15 +47,15 @@ export function getUserWallet(userId){
     return failure("user not found, or has no wallet")
 }
 
-export function transfer(fromUserId, toUserId, amount){
+export function mockTransfer(fromUserId, toUserId, amount){
     wait(500)
 
-    const fromWalletId = JSON.parse(getUserWallet(fromUserId))
-    const toWalletId = JSON.parse(getUserWallet(toUserId))
+    const fromWalletId = JSON.parse(mockGetUserWallet(fromUserId))
+    const toWalletId = JSON.parse(mockGetUserWallet(toUserId))
 
     if(fromWalletId.status === "success" && toWalletId.status === "success"){
         const newId = transfers[transfers.size - 1].id + 1
-        transfer = {
+        const transfer = {
             id: newId,
             from_wallet_id: fromWalletId,
             to_wallet_id: toWalletId,
