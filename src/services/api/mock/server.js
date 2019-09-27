@@ -44,7 +44,7 @@ export function getTransfersMade(userId){
 
     if(walletRes.status === "success"){
         const wallet = walletRes.result
-        let transfersMade = []
+        const transfersMade = []
         for(let transfer of transfers){
             if(transfer.from_wallet_id === wallet.id){
                 transfersMade.push(transfer)
@@ -64,7 +64,7 @@ export function getTransfersReceived(userId){
 
     if(walletRes.status === "success"){
         const wallet = walletRes.result
-        let transfersMade = []
+        const transfersMade = []
         for(let transfer of transfers){
             if(transfer.to_wallet_id === wallet.id){
                 transfersMade.push(transfer)
@@ -84,7 +84,7 @@ export function getPayIns(userId){
 
     if(walletRes.status === "success"){
         const wallet = walletRes.result
-        let userPayIns = []
+        const userPayIns = []
         for(let payIn of payIns){
             if(payIn.wallet_id === wallet.id){
                 userPayIns.push(payIn)
@@ -104,7 +104,7 @@ export function getPayOuts(userId){
 
     if(walletRes.status === "success"){
         const wallet = walletRes.result
-        let userPayOuts = []
+        const userPayOuts = []
         for(let payOut of payOuts){
             if(payOut.wallet_id === wallet.id){
                 userPayOuts.push(payOut)
@@ -115,6 +115,19 @@ export function getPayOuts(userId){
     }
 
     return failure("user not found, or has no wallet")
+}
+
+export function getCards(userId){
+    wait(100)
+
+    const userCards = []
+    for(let card of cards){
+        if(card.user_id == userId){
+            userCards.push(card)
+        }
+    }
+
+    return success(userCards)
 }
 
 export function authenticate(email, password){
