@@ -1,7 +1,11 @@
 export class Transfer{
     id;
-    fromWalletId;
-    toWalletId;
+    toUserId;
     amount;
-    currency;
+
+    constructor(id, toUserId, amount){
+        this.id = id
+        this.toUserId = toUserId
+        this.amount = amount
+    }
 }
