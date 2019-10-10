@@ -57,16 +57,23 @@ class Menu extends Component {
                     <p>User info : {this.user.first_name} {this.user.last_name}</p>
                 </div>
                 <div>
-                    <ul>
-                        <li> Virer vers une banque</li>
-                        <li> Gérer cartes</li>
-                        <AlertDialog/>
+                    <Router>
+                        <Nav className="ml-auto" navbar>
 
-                        <li onClick={() => {
-                            this.disconnect()
-                        }}> Déconnexion
-                        </li>
-                    </ul>
+                            <ul>
+                                <li> Virer vers une banque</li>
+                                <li> Gérer cartes</li>
+                                <AlertDialog/>
+
+                                <li onClick={() => {
+                                    this.disconnect()
+                                }}> Déconnexion
+                                </li>
+                            </ul>
+                        </Nav>
+                        <Route path="/login" component={Login}/>
+                    <Route path="/menu" component={Menu}/>
+                    </Router>
                 </div>
             </div>
         );
