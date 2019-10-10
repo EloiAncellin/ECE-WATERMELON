@@ -16,6 +16,10 @@ export function getPayOuts(userId){
     return JSON.parse(mock.getPayOuts(userId))
 }
 
+export function getCards(userId){
+    return JSON.parse(mock.getCards(userId))
+}
+
 export function authenticate(email, password){
     return JSON.parse(mock.authenticate(email, password))
 }
