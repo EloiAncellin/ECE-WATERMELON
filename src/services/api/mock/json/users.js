@@ -1,15 +1,15 @@
 export const users = [
 	{
 		id: 1,
-		first_name: "toto1",
-		last_name: "tata1",
+		first_name: "Eloi",
+		last_name: "Ancellin",
 		email: "toto1@ece.fr",
 		password: "toto1"
 	},
 	{
 		id: 2,
-		first_name: "toto2",
-		last_name: "tata2",
+		first_name: "Omar",
+		last_name: "Aflak",
 		email: "toto2@ece.fr",
 		password: "toto2"
 	}
