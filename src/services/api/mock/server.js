@@ -142,17 +142,6 @@ export function authenticate(email, password){
     return failure("user not found, or wrong password")
 }
 
-export function getCards(userId){
-    wait(100);
-    let userCards = {};
-    for(let card of cards) {
-        if (card.user_id === userId) {
-            cards.push(card);
-        }
-    }
-    return success(cards);
-}
-
 // UPDATE REQUESTS
 
 export function transfer(fromUserId, toUserId, amount){
