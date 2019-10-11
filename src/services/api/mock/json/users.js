@@ -4,7 +4,7 @@ export const users = [
 		first_name: "Eloi",
 		last_name: "Ancellin",
 		email: "toto1@ece.fr",
-		password: "toto1"
+		password: "toto1",
 	},
 	{
 		id: 2,

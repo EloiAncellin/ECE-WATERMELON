@@ -16,3 +16,4 @@ export function disconnect(props){
         localStorage.clear();
         props.history.push('/login');
 }
+

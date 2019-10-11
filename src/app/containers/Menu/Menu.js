@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
-import './../services/userService';
-import {getUserFromStorage, saveUserToStorage, disconnect} from "../services/userService";
-import './../services/GuardService';
-import {redirectIfNotAuth} from "../services/GuardService";
-import './../SendMoney/SendMoney';
-import AlertDialog from "../SendMoney/SendMoney";
-
+import '../../../services/userService';
+import {getUserFromStorage, saveUserToStorage, disconnect} from "./../../../services/userService";import {redirectIfNotAuth} from "./../../../services/GuardService";
+import './../SendMoney/SendMoneyContainer';
+import {getWallet} from "../../../services/apiService";
 
 class Menu extends Component {
 
@@ -19,10 +16,10 @@ class Menu extends Component {
         saveUserToStorage();
         let user = getUserFromStorage();
         this.user = user;
+        this.userWallet = getWallet(this.user.id).result;
+        console.log(this.userWallet);
         console.log(user);
-        console.log(this.user.first_name);
         redirectIfNotAuth(props);
-        this.envoyerArgent = this.envoyerArgent.bind(this);
         this.handleUserInput = this.handleUserInput.bind(this);
     }
 
@@ -46,8 +43,8 @@ class Menu extends Component {
         }
     }
 
-    envoyerArgent() {
-        console.log('bonjour');
+    goToEnvoyerArgent() {
+        this.props.history.push('/SendMoneyContainer');
     }
 
     render() {
@@ -55,12 +52,14 @@ class Menu extends Component {
             <div>
                 <div>
                     <p>User info : {this.user.first_name} {this.user.last_name}</p>
+                    <p>Balance du compte : {this.userWallet.balance}</p>
                 </div>
                 <div>
                     <ul>
                         <li> Virer vers une banque</li>
                         <li> Gérer cartes</li>
-                        <AlertDialog/>
+                        <li onClick={ () => {this.goToEnvoyerArgent()}
+                        }> Envoyer de l'argent</li>
 
                         <li onClick={() => {
                             this.disconnect()
