@@ -22,8 +22,8 @@ class Menu extends Component {
         console.log(user);
         console.log(this.user.first_name);
         redirectIfNotAuth(props);
-        this.envoyerArgent = this.envoyerArgent.bind(this);
         this.handleUserInput = this.handleUserInput.bind(this);
+
     }
 
     disconnect() {
@@ -46,8 +46,8 @@ class Menu extends Component {
         }
     }
 
-    envoyerArgent() {
-        console.log('bonjour');
+    goToEnvoyerArgent() {
+        this.props.history.push('/SendMoneyContainer');
     }
 
     render() {
@@ -57,23 +57,17 @@ class Menu extends Component {
                     <p>User info : {this.user.first_name} {this.user.last_name}</p>
                 </div>
                 <div>
-                    <Router>
-                        <Nav className="ml-auto" navbar>
+                    <ul>
+                        <li> Virer vers une banque</li>
+                        <li> Gérer cartes</li>
+                        <li onClick={ () => {this.goToEnvoyerArgent()}
+                        }> Envoyer de l'argent</li>
 
-                            <ul>
-                                <li> Virer vers une banque</li>
-                                <li> Gérer cartes</li>
-                                <AlertDialog/>
-
-                                <li onClick={() => {
-                                    this.disconnect()
-                                }}> Déconnexion
-                                </li>
-                            </ul>
-                        </Nav>
-                        <Route path="/login" component={Login}/>
-                    <Route path="/menu" component={Menu}/>
-                    </Router>
+                        <li onClick={() => {
+                            this.disconnect()
+                        }}> Déconnexion
+                        </li>
+                    </ul>
                 </div>
             </div>
         );

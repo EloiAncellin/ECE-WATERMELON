@@ -10,13 +10,10 @@ import {
     Nav,
     NavItem,
     NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem
 } from 'reactstrap';
 import Login from "../Login/Login";
 import Menu from "../Menu/Menu";
+import SendMoneyContainer from "../app/containers/SendMoneyContainer";
 
 class Header extends Component {
     constructor(props) {
@@ -53,6 +50,7 @@ class Header extends Component {
                     </Navbar>
                     <Route path="/login" component={Login}/>
                     <Route path="/menu" component={Menu}/>
+                    <Route path="/SendMoneyContainer" component={SendMoneyContainer}/>
                 </Router>
             </div>
 

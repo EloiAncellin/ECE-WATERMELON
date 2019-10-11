@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {LoginErrors} from './LoginErrors.js';
 import './Form.css';
-import {Button, Form as F, FormGroup, Label, Input, FormText} from 'reactstrap';
+import {Button, Form as F, FormGroup} from 'reactstrap';
 
 class Login extends Component {
     constructor(props) {
