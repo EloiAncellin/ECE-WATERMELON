@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './../services/userService';
+import '../../../services/userService';
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 
 import {
@@ -13,7 +13,7 @@ import {
 } from 'reactstrap';
 import Login from "../Login/Login";
 import Menu from "../Menu/Menu";
-import SendMoneyContainer from "../app/containers/SendMoneyContainer";
+import SendMoneyContainer from "./../SendMoney/SendMoneyContainer";
 
 class Header extends Component {
     constructor(props) {

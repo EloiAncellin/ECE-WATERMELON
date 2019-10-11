@@ -1,6 +1,3 @@
-import React, {Component} from 'react';
-
-
 export function redirectIfNotAuth(props){
         const user = localStorage.getItem('user');
         console.log(user);

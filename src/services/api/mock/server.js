@@ -142,36 +142,39 @@ export function authenticate(email, password){
     return failure("user not found, or wrong password")
 }
 
-export function getCards(userId){
-    wait(100);
-    let userCards = {};
-    for(let card of cards) {
-        if (card.user_id === userId) {
-            cards.push(card);
+
+export function getUserFromMail(email){
+    for(let user of users){
+        if (user.email === email){
+            return success(user)
         }
     }
-    return success(cards);
+    return failure("User not found")
 }
+
 
 // UPDATE REQUESTS
 
 export function transfer(fromUserId, toUserId, amount){
     wait(500)
 
-    const fromWalletId = JSON.parse(getUserWallet(fromUserId))
-    const toWalletId = JSON.parse(getUserWallet(toUserId))
-
-    if(fromWalletId.status === "success" && toWalletId.status === "success"){
+    const fromWallet = JSON.parse(getUserWallet(fromUserId));
+    const toWallet = JSON.parse(getUserWallet(toUserId));
+    console.log(fromWallet);
+    if(fromWallet.status === "success" && toWallet.status === "success"){
         const newId = transfers[transfers.length - 1].id + 1
         const transfer = {
             id: newId,
-            from_wallet_id: fromWalletId.result.id,
-            to_wallet_id: toWalletId.result.id,
+            from_wallet_id: fromWallet.result.id,
+            to_wallet_id: toWallet.result.id,
             amount: amount
-        }
-        transfers.push(transfer)
-        return success(transfer)
+        };
+        fromWallet.result.balance -= amount;
+        toWallet.result.balance += amount;
+        transfers.push(transfer);
+        return success(fromWallet);
     }
 
     return failure("at least one user_id not found")
 }
+

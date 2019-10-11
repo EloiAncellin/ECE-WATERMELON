@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
-import './../services/userService';
-import {getUserFromStorage, saveUserToStorage, disconnect} from "../services/userService";
-import './../services/GuardService';
-import {redirectIfNotAuth} from "../services/GuardService";
-import './../SendMoney/SendMoney';
-import AlertDialog from "../SendMoney/SendMoney";
-
+import '../../../services/userService';
+import {getUserFromStorage, saveUserToStorage, disconnect} from "./../../../services/userService";import {redirectIfNotAuth} from "./../../../services/GuardService";
+import './../SendMoney/SendMoneyContainer';
+import {getWallet} from "../../../services/apiService";
 
 class Menu extends Component {
 
@@ -19,11 +16,11 @@ class Menu extends Component {
         saveUserToStorage();
         let user = getUserFromStorage();
         this.user = user;
+        this.userWallet = getWallet(this.user.id).result;
+        console.log(this.userWallet);
         console.log(user);
-        console.log(this.user.first_name);
         redirectIfNotAuth(props);
         this.handleUserInput = this.handleUserInput.bind(this);
-
     }
 
     disconnect() {
@@ -55,6 +52,7 @@ class Menu extends Component {
             <div>
                 <div>
                     <p>User info : {this.user.first_name} {this.user.last_name}</p>
+                    <p>Balance du compte : {this.userWallet.balance}</p>
                 </div>
                 <div>
                     <ul>

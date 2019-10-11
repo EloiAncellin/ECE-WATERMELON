@@ -1,5 +1,10 @@
 import * as mock from './api/mock/server.js'
 
+
+export function getWallet(userId){
+    return JSON.parse(mock.getUserWallet(userId));
+}
+
 export function getTransfersMade(userId){
     return JSON.parse(mock.getTransfersMade(userId))
 }
@@ -26,4 +31,8 @@ export function authenticate(email, password){
 
 export function transfer(fromUserId, toUserId, amount){
     return JSON.parse(mock.transfer(fromUserId, toUserId, amount))
+}
+
+export function getUserFromMail(email){
+    return JSON.parse(mock.getUserFromMail(email));
 }
