@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import {LoginErrors} from './LoginErrors.js';
 import './Form.css';
-import {Button, Form as F, FormGroup} from 'reactstrap';
+import {Button, Form, FormGroup} from 'reactstrap';
+import {authenticate} from "../../../services/apiService";
 
 class Login extends Component {
     constructor(props) {
         super(props);
+        this.props= props;
         this.state = {
             email: '',
             password: '',
@@ -14,7 +16,7 @@ class Login extends Component {
             passwordValid: true,
             formValid: false
         };
-        this.onClick = this.onClick();
+        this.onSubmit = this.onSubmit();
     }
 
     handleUserInput = (e) => {
@@ -24,6 +26,8 @@ class Login extends Component {
             () => {
                 this.validateField(name, value)
             });
+        localStorage.setItem(name,value);
+        console.log(this.state);
     }
 
     validateField(fieldName, value) {
@@ -48,6 +52,7 @@ class Login extends Component {
             emailValid: emailValid,
             passwordValid: passwordValid
         }, this.validateForm);
+
     }
 
     validateForm() {
@@ -58,13 +63,18 @@ class Login extends Component {
         return (error.length === 0 ? '' : 'has-error');
     }
 
-    onClick(){
-        //this.props.history.push('/login');
+    onSubmit(){
+        const email = localStorage.getItem('email');
+        const password = localStorage.getItem('password');
+        const user = authenticate(email, password);
+        localStorage.setItem('user', JSON.stringify(user.result));
+        //this.props.history.push('/protected');
+        console.log(user);
     }
 
     render() {
         return (
-            <F className="demoForm">
+            <Form className="demoForm">
                 <h2>Sign up</h2>
                 <div className="panel panel-default">
                     <LoginErrors formErrors={this.state.formErrors}/>
@@ -82,12 +92,14 @@ class Login extends Component {
                     <div className={`form-group ${this.errorClass(this.state.formErrors.password)}`}>
                         <label htmlFor="password">Password</label>
                         <input type="password" className="form-control" name="password"
-                               placeholder="Password"/>
+                               placeholder="Password"
+                               value={this.state.password}
+                                onChange={this.handleUserInput}/>
                     </div>
                 </FormGroup>
 
-                <Button type="submit" onClick={this.onClick} className="btn btn-primary" disabled={!this.state.formValid}>Sign up</Button>
-            </F>
+                <Button type="submit" onSubmit={this.onSubmit} className="btn btn-primary" disabled={!this.state.formValid}>Sign up</Button>
+            </Form>
         )
     }
 }

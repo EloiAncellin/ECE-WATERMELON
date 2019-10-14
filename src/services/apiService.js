@@ -2,37 +2,37 @@ import * as mock from './api/mock/server.js'
 
 
 export function getWallet(userId){
-    return JSON.parse(mock.getUserWallet(userId));
+    return mock.getUserWallet(userId);
 }
 
 export function getTransfersMade(userId){
-    return JSON.parse(mock.getTransfersMade(userId))
+    return mock.getTransfersMade(userId)
 }
 
 export function getTransfersReceived(userId){
-    return JSON.parse(mock.getTransfersReceived(userId))
+    return mock.getTransfersReceived(userId)
 }
 
 export function getPayIns(userId){
-    return JSON.parse(mock.getPayIns(userId))
+    return mock.getPayIns(userId)
 }
 
 export function getPayOuts(userId){
-    return JSON.parse(mock.getPayOuts(userId))
+    return mock.getPayOuts(userId)
 }
 
 export function getCards(userId){
-    return JSON.parse(mock.getCards(userId))
+    return mock.getCards(userId)
 }
 
 export function authenticate(email, password){
-    return JSON.parse(mock.authenticate(email, password))
+    return mock.authenticate(email, password)
 }
 
 export function transfer(fromUserId, toUserId, amount){
-    return JSON.parse(mock.transfer(fromUserId, toUserId, amount))
+    return mock.transfer(fromUserId, toUserId, amount)
 }
 
 export function getUserFromMail(email){
-    return JSON.parse(mock.getUserFromMail(email));
+    return mock.getUserFromMail(email);
 }

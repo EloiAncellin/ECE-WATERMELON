@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import '../../../services/userService';
-import {getUserFromStorage, saveUserToStorage, disconnect} from "./../../../services/userService";import {redirectIfNotAuth} from "./../../../services/GuardService";
+import '../../../services/storageService';
+import { saveUserToStorage, disconnect} from "./../../../services/userService";
 import './../SendMoney/SendMoneyContainer';
 import {getWallet} from "../../../services/apiService";
+import {getWalletFromStorage, getUserFromStorage} from "../../../services/storageService";
 
 class Menu extends Component {
 
@@ -11,36 +12,42 @@ class Menu extends Component {
         this.props = props;
         this.state = {
             destinataire: '',
-            amount: 0
+            amount: 0,
+            user: {},
+            userWaller: {}
         };
-        saveUserToStorage();
-        let user = getUserFromStorage();
-        this.user = user;
-        this.userWallet = getWallet(this.user.id).result;
-        console.log(this.userWallet);
-        console.log(user);
-        redirectIfNotAuth(props);
-        this.handleUserInput = this.handleUserInput.bind(this);
+        this.props = props;
+        try{
+
+        this.state.user = getUserFromStorage();
+
+        if(this.state.user.status === "success"){
+            this.state.user = this.state.user.result;
+            console.log(this.state.user);
+        }else{
+            this.props.history.push('/protected');
+        }
+
+        this.state.userWallet = getWalletFromStorage();
+        if(this.state.userWallet.status === 'success'){
+            this.state.userWallet = this.state.userWallet.result;
+        }else{
+            this.state.userWallet = getWallet(this.state.user.id).result;
+        }
+
+        if(this.state.userWallet === null || this.state.userWallet.status==='failure'){
+            this.state.userWallet = getWallet(this.state.user.id).result;
+        }
+        localStorage.setItem('wallet', JSON.stringify(this.state.userWallet));
+        }catch (e) {
+            this.props.history.push('/protected');
+        }
+
+        //redirectIfNotAuth(props);
     }
 
     disconnect() {
         disconnect(this.props);
-    }
-
-    handleUserInput = (e) => {
-        console.log(e.target.name);
-        const name = e.target.name;
-        const value = e.target.value;
-        switch (name) {
-            case 'destinataire':
-                this.state.destinataire = name;
-                break;
-            case 'amount':
-                this.state.amount = value;
-                break;
-            default:
-                break;
-        }
     }
 
     goToEnvoyerArgent() {
@@ -51,8 +58,8 @@ class Menu extends Component {
         return (
             <div>
                 <div>
-                    <p>User info : {this.user.first_name} {this.user.last_name}</p>
-                    <p>Balance du compte : {this.userWallet.balance}</p>
+                    <p>User info : {this.state.user.first_name} {this.state.user.last_name}</p>
+                    <p>Balance du compte : {this.state.userWallet.balance}</p>
                 </div>
                 <div>
                     <ul>

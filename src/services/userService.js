@@ -2,12 +2,11 @@ import "./apiService.js"
 import {authenticate} from "./api/mock/server";
 
 export function getUserFromStorage(){
-        let result = JSON.parse(localStorage.getItem('user'));
-        return result.result;
+        return  localStorage.getItem('user');
 }
 
-export function saveUserToStorage(){
-        let user =  authenticate('toto1@ece.fr', 'toto1');
+export function saveUserToStorage(user){
+        //let user =  authenticate('toto1@ece.fr', 'toto1');
         localStorage.setItem('user', user);
         return true;
 }

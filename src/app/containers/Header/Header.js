@@ -45,11 +45,15 @@ class Header extends Component {
                                 <NavItem>
                                     <NavLink><Link to="/login">Login</Link></NavLink>
                                 </NavItem>
+                                <NavItem>
+                                    <NavLink><Link to="/sendMoney">Envoyer de l'argent</Link></NavLink>
+                                </NavItem>
                             </Nav>
                         </Collapse>
                     </Navbar>
                     <Route path="/login" component={Login}/>
                     <Route path="/menu" component={Menu}/>
+                    <Route path="/sendMoney" component={SendMoneyContainer}/>
                     <Route path="/SendMoneyContainer" component={SendMoneyContainer}/>
                 </Router>
             </div>

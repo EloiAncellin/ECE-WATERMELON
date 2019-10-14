@@ -9,18 +9,18 @@ function wait(ms){
     //sleep(ms)
 }
 
-function success(result){
-    return JSON.stringify({
+export function success(result){
+    return {
         status: "success",
         result: result
-    })
+    }
 }
 
-function failure(error){
-    return JSON.stringify({
+export function failure(error){
+    return {
         status: "failure",
         error: error
-    })
+    }
 }
 
 // GET REQUESTS
@@ -158,7 +158,8 @@ export function transfer(fromUserId, toUserId, amount){
 
     const fromWallet = JSON.parse(getUserWallet(fromUserId));
     const toWallet = JSON.parse(getUserWallet(toUserId));
-    console.log(fromWallet);
+    console.log(fromUserId);
+    console.log(toUserId);
     if(fromWallet.status === "success" && toWallet.status === "success"){
         const newId = transfers[transfers.length - 1].id + 1
         const transfer = {
