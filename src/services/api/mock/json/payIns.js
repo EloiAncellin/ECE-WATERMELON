@@ -24,4 +24,5 @@ export const payIns = [
 		wallet_id: 2,
 		amount: 1.2
 	},
-] 
+];
+

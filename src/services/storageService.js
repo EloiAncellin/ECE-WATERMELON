@@ -11,6 +11,7 @@ export function getUserFromStorage(){
             return failure(null);
         }
     }catch(e){
+        console.log(e.toString());
         console.log('user failure');
         return failure(null);
     }

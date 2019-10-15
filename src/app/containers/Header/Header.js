@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import '../../../services/userService';
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
-
 import {
     Collapse,
     Navbar,
@@ -11,7 +10,6 @@ import {
     NavItem,
     NavLink,
 } from 'reactstrap';
-import Login from "../Login/Login";
 import Menu from "../Menu/Menu";
 import SendMoneyContainer from "./../SendMoney/SendMoneyContainer";
 
@@ -30,6 +28,10 @@ class Header extends Component {
         });
     }
 
+    disconnect() {
+        localStorage.clear();
+        window.location.reload();
+    }
     render() {
         return (
             <div>
@@ -43,15 +45,16 @@ class Header extends Component {
                                     <NavLink><Link to="/menu">Home</Link></NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink><Link to="/login">Login</Link></NavLink>
+                                    <NavLink><Link to="/sendMoney">Envoyer de l'argent</Link></NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink><Link to="/sendMoney">Envoyer de l'argent</Link></NavLink>
+                                    <NavLink onClick={() => {
+                                        this.disconnect()
+                                    }}>Deconnexion</NavLink>
                                 </NavItem>
                             </Nav>
                         </Collapse>
                     </Navbar>
-                    <Route path="/login" component={Login}/>
                     <Route path="/menu" component={Menu}/>
                     <Route path="/sendMoney" component={SendMoneyContainer}/>
                     <Route path="/SendMoneyContainer" component={SendMoneyContainer}/>

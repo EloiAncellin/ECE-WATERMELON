@@ -33,7 +33,6 @@ export function getUserWallet(userId){
             return success(wallet)
         }
     }
-
     return failure("user not found, or has no wallet")
 }
 

@@ -1,20 +1,24 @@
 import React, {Component} from 'react';
-import {LoginErrors} from './LoginErrors.js';
+import {SignUpErrors} from './SignUpErrors.js';
 import './Form.css';
 import {Button, Form, FormGroup} from 'reactstrap';
 import {authenticate} from "../../../services/apiService";
 import {Redirect} from "react-router-dom";
 
-class Login extends Component {
+class SignUpContainer extends Component {
     constructor(props) {
         super(props);
         this.props= props;
         this.state = {
             email: '',
             password: '',
-            formErrors: {email: '', password: ''},
+            firstName:'',
+            lastName:'',
+            formErrors: {email: '', password: '', firstName:'', lastName:''},
             emailValid: false,
             passwordValid: true,
+            firstNameValid:true,
+            lastNameValid:true,
             formValid: false
         };
         this.onSubmit = this.onSubmit.bind(this);
@@ -28,13 +32,14 @@ class Login extends Component {
                 this.validateField(name, value)
             });
         localStorage.setItem(name,value);
-        console.log(this.state);
     };
 
     validateField(fieldName, value) {
         let fieldValidationErrors = this.state.formErrors;
         let emailValid = this.state.emailValid;
         let passwordValid = this.state.passwordValid;
+        let firstNameValid = this.state.firstNameValid;
+        let lastNameValid = this.state.lastNameValid;
 
         switch (fieldName) {
             case 'email':
@@ -45,19 +50,31 @@ class Login extends Component {
                 passwordValid = true;
                 fieldValidationErrors.password = passwordValid ? '' : ' is too short';
                 break;
+            case 'lastName':
+                lastNameValid=true;
+                fieldValidationErrors.lastName= lastNameValid ? '' : 'is tooshort';
+                break;
+            case 'firstName':
+                firstNameValid = true;
+                fieldValidationErrors.firstName= firstNameValid ? '' : 'is tooshort';
+                break;
             default:
                 break;
         }
         this.setState({
             formErrors: fieldValidationErrors,
             emailValid: emailValid,
-            passwordValid: passwordValid
+            passwordValid: passwordValid,
+            firstNameValid: firstNameValid,
+            lastNameValid: lastNameValid
         }, this.validateForm);
-
+        console.log(this.state);
     }
 
     validateForm() {
-        this.setState({formValid: this.state.emailValid && this.state.passwordValid});
+        this.setState({formValid: this.state.emailValid &&
+                this.state.passwordValid && this.state.firstNameValid &&
+                this.state.lastNameValid});
     }
 
     errorClass(error) {
@@ -65,23 +82,28 @@ class Login extends Component {
     }
 
     onSubmit(){
-        const email = localStorage.getItem('email');
-        const password = localStorage.getItem('password');
-        const user = authenticate(email, password);
-        localStorage.setItem('user', JSON.stringify(user.result));
-        //this.props.history.push('/protected');
-        console.log(user);
+        const usr =
+            {
+                id: 100,
+                email : this.state.email,
+                firstName: this.state.firstName,
+                lastName: this.state.lastName
+            };
+        console.log(usr);
+        localStorage.setItem('user', JSON.stringify(usr));
+        console.log(usr);
         return(<Redirect to='/menu'/>)
+
     }
 
     render() {
         return (
             <Form className="demoForm">
-                <h2>Se connecter</h2>
+                <h2>Inscription</h2>
                 <div className="panel panel-default">
-                    <LoginErrors formErrors={this.state.formErrors}/>
+                    <SignUpErrors formErrors={this.state.formErrors}/>
                 </div>
-                <FormGroup onSubmit={this.onSubmit}>
+                <FormGroup >
                     <div className={`form-group ${this.errorClass(this.state.formErrors.email)}`}>
                         <label htmlFor="email">Email address</label>
                         <input type="email" required className="form-control" name="email"
@@ -99,6 +121,24 @@ class Login extends Component {
                                 onChange={this.handleUserInput}/>
                     </div>
                 </FormGroup>
+                <FormGroup>
+                    <div className={`form-group `}>
+                        <label htmlFor="lastName">Nom</label>
+                        <input type="text" className="form-control" name="lastName"
+                               placeholder="Nom"
+                               value={this.state.lastName}
+                                onChange={this.handleUserInput}/>
+                    </div>
+                </FormGroup>
+                <FormGroup>
+                    <div className={`form-group ${this.errorClass(this.state.formErrors.firstName)}`}>
+                        <label htmlFor="firstName">Prénom</label>
+                        <input type="text" className="form-control" name="firstName"
+                               placeholder="Prénom"
+                               value={this.state.firstName}
+                                onChange={this.handleUserInput}/>
+                    </div>
+                </FormGroup>
 
                 <Button type="submit" onSubmit={this.onSubmit()} className="btn btn-primary"
                         disabled={!this.state.formValid}>Sign up</Button>
@@ -107,4 +147,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default SignUpContainer;

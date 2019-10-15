@@ -7,6 +7,7 @@ import {
     saveUserToStorage,
     saveWalletToStorage
 } from "../../../services/storageService";
+import {Redirect} from "react-router-dom";
 
 
 
@@ -67,6 +68,9 @@ class SendMoneyContainer extends React.Component {
         const userWallet = transfer(sender.id, receiver.id, this.state.amount);
         userWallet.balance -= this.state.amount;
         localStorage.setItem('wallet', null);
+        return(
+            <Redirect to='/menu'/>
+        )
         this.props.history.push('/menu');
         return true;
     }
