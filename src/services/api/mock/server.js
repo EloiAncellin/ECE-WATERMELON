@@ -25,7 +25,6 @@ export function failure(error){
 
 // GET REQUESTS
 
-
 export function getUserWallet(userId){
     wait(100)
 
@@ -178,6 +177,7 @@ export function transfer(fromUserId, toUserId, amount){
 }
 
 
+
 // get maxId
 export function getMaxIdWallet(){
     let maximum = 0;
@@ -188,11 +188,9 @@ export function getMaxIdWallet(){
     }
     return maximum;
 }
-
-
-export function getMaxIdUser(){
+export function getMaxIdWallet(){
     let maximum = 0;
-    for(let variable of users){
+    for(let variable of wallets){
         if(variable.user_id > maximum){
             maximum = variable.user_id;
         }
