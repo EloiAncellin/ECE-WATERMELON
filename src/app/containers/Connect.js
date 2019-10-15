@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Button} from 'reactstrap';
-import SignUp from "../components/SignUp";
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import {
     Navbar,

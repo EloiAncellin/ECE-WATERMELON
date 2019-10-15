@@ -25,6 +25,7 @@ export function failure(error){
 
 // GET REQUESTS
 
+
 export function getUserWallet(userId){
     wait(100)
 
@@ -176,3 +177,25 @@ export function transfer(fromUserId, toUserId, amount){
     return failure("at least one user_id not found")
 }
 
+
+// get maxId
+export function getMaxIdWallet(){
+    let maximum = 0;
+    for(let variable of wallets){
+        if(variable.user_id > maximum){
+            maximum = variable.user_id;
+        }
+    }
+    return maximum;
+}
+
+
+export function getMaxIdUser(){
+    let maximum = 0;
+    for(let variable of users){
+        if(variable.user_id > maximum){
+            maximum = variable.user_id;
+        }
+    }
+    return maximum;
+}
