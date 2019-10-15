@@ -12,6 +12,7 @@ import {
 } from 'reactstrap';
 import Menu from "../Menu/Menu";
 import SendMoneyContainer from "./../SendMoney/SendMoneyContainer";
+import Cards from "../Card/Cards";
 
 class Header extends Component {
     constructor(props) {
@@ -48,6 +49,9 @@ class Header extends Component {
                                     <NavLink><Link to="/sendMoney">Envoyer de l'argent</Link></NavLink>
                                 </NavItem>
                                 <NavItem>
+                                    <NavLink><Link to="/Cartes">Cartes</Link></NavLink>
+                                </NavItem>
+                                <NavItem>
                                     <NavLink onClick={() => {
                                         this.disconnect()
                                     }}>Deconnexion</NavLink>
@@ -58,6 +62,7 @@ class Header extends Component {
                     <Route path="/menu" component={Menu}/>
                     <Route path="/sendMoney" component={SendMoneyContainer}/>
                     <Route path="/SendMoneyContainer" component={SendMoneyContainer}/>
+                    <Route path="/Cartes" component={Cards}/>
                 </Router>
             </div>
 

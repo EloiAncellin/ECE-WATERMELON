@@ -1,12 +1,15 @@
 import React from 'react';
 import SendMoney from '../../components/SendMoney.js';
-import {getUserFromMail, transfer, getWallet} from "../../../services/apiService";
+import {getUserFromMail, transfer} from "../../../services/apiService";
 import {
     getUserFromStorage,
     getWalletFromStorage,
     saveUserToStorage,
     saveWalletToStorage
 } from "../../../services/storageService";
+import {
+    getWallet
+} from "../../../services/userService";
 import {Redirect} from "react-router-dom";
 
 
@@ -16,7 +19,9 @@ class SendMoneyContainer extends React.Component {
         super(props);
         this.state = {
             desti: '',
-            amount: 0
+            amount: 0,
+            userWallet:{},
+            user:{}
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,14 +30,15 @@ class SendMoneyContainer extends React.Component {
         try{
 
         this.state.user = getUserFromStorage();
-
+        console.log(this.state.user.result);
         if(this.state.user.status === "success"){
             this.state.user = this.state.user.result;
         }else{
             this.props.history.push('/protected');
         }
 
-        this.state.userWallet = getWalletFromStorage();
+        this.state.userWallet = getWallet();
+        console.log(this.state.userWallet);
         if(this.state.userWallet.status === 'success'){
             this.state.userWallet = this.state.userWallet.result;
         }else{

@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import '../../../services/storageService';
-import { saveUserToStorage, disconnect} from "./../../../services/userService";
 import './../SendMoney/SendMoneyContainer';
-import {getWallet} from "../../../services/apiService";
-import {getWalletFromStorage, getUserFromStorage} from "../../../services/storageService";
-import {Redirect} from "react-router-dom";
-import Header from "../Header/Header";
+import { getUserFromStorage} from "../../../services/storageService";
+import {getWallet} from "../../../services/userService";
+
 
 class Menu extends Component {
 
@@ -30,7 +28,8 @@ class Menu extends Component {
             //this.props.history.push('/protected');
         }
 
-        this.state.userWallet = getWalletFromStorage();
+        this.state.userWallet = getWallet();
+        console.log(this.state.userWallet.result);
         if(this.state.userWallet.status === 'success'){
             this.state.userWallet = this.state.userWallet.result;
         }else{
@@ -60,6 +59,10 @@ class Menu extends Component {
         this.props.history.push('/SendMoneyContainer');
     }
 
+    goToCards(){
+        this.props.history.push('/Cartes');
+    }
+
     render() {
         return (
             <div>
@@ -71,9 +74,8 @@ class Menu extends Component {
                 <div>
                     <ul>
                         <li> Virer vers une banque</li>
-                        <li> Gérer cartes</li>
-                        <li onClick={ () => {this.goToEnvoyerArgent()}
-                        }> Envoyer de l'argent</li>
+                        <li onClick={ () => {this.goToCards()}}> Gérer cartes</li>
+                        <li onClick={ () => {this.goToEnvoyerArgent()}}> Envoyer de l'argent</li>
 
                         <li onClick={() => {
                             this.disconnect()

@@ -1,6 +1,8 @@
 import "./apiService.js"
-import {authenticate} from "./api/mock/server";
+import {authenticate, getUserWallet, success} from "./api/mock/server";
 import './storageService';
+import {getUserFromStorage, getWalletFromStorage} from "./storageService";
+import {createWallet} from "./createData";
 
 export function saveUserToStorage(user){
         //let user =  authenticate('toto1@ece.fr', 'toto1');
@@ -13,23 +15,23 @@ export function disconnect(props){
         props.history.push('/login');
 }
 
-function getWallet(){
-        const wallet = getWalletFromStrage();
+export function getWallet(){
+        const wallet = getWalletFromStorage();
         if(wallet.status === "success"){
                 return success(wallet.result);
         }else{
                 const user = getUserFromStorage();
                 if(user.status==="success"){
-                        let userwallet = getWallet(user.result.id);
+                        let userwallet = getUserWallet(user.result.id);
                         if(userwallet.status==="success"){
                                 return success(userwallet.result);
                         }else{
-                                return {
-                                        id: maxId
-                                }
+                                return success(createWallet(user));
                         }
 
                 }
         }
 }
+
+
 

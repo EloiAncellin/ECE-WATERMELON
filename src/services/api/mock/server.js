@@ -188,9 +188,9 @@ export function getMaxIdWallet(){
     }
     return maximum;
 }
-export function getMaxIdWallet(){
+export function getMaxIdUser(){
     let maximum = 0;
-    for(let variable of wallets){
+    for(let variable of users){
         if(variable.user_id > maximum){
             maximum = variable.user_id;
         }

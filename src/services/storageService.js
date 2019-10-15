@@ -56,6 +56,16 @@ export function saveWalletToStorage(wallet){
     return success(wallet);
 }
 
+export function saveCardsToStorage(cards){
+    if(cards === null || cards === undefined){
+            return failure(cards);
+        }else{
+            localStorage.setItem('cards', JSON.stringify(cards));
+        }
+
+    return success(cards);
+}
+
 
 export function disconnect(props){
         localStorage.clear();
