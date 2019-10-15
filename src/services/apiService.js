@@ -21,7 +21,7 @@ export function getPayOuts(userId){
     return mock.getPayOuts(userId)
 }
 
-export function getCards(userId){
+export function getUserCards(userId){
     return mock.getCards(userId)
 }
 

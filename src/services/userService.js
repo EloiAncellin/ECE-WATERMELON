@@ -1,8 +1,9 @@
+import {getUserCards} from "./apiService";
 import "./apiService.js"
-import {authenticate, getUserWallet, success} from "./api/mock/server";
+import {failure, getUserWallet, success} from "./api/mock/server";
 import './storageService';
-import {getUserFromStorage, getWalletFromStorage} from "./storageService";
-import {createWallet} from "./createData";
+import {getCardFormStorage, getUserFromStorage, getWalletFromStorage, saveCardsToStorage} from "./storageService";
+import {createCards, createWallet} from "./createData";
 
 export function saveUserToStorage(user){
         //let user =  authenticate('toto1@ece.fr', 'toto1');
@@ -33,5 +34,35 @@ export function getWallet(){
         }
 }
 
+export function getCards(){
+        const cards = getCardFormStorage();
+        if(cards.status === "success"){
+                return success(cards.result);
+        }else{
+                const user = getUserFromStorage();
+                if(user.status==="success"){
+                        let userCards = getUserCards(user.result.id);
+                        if(userCards.status === "success"){
+                                return success(userCards.result)
+                        }else{
+                                return success(createCards());
+                        }
+                }
 
+        }
+}
 
+export function deleteCard(cardId){
+        let cards = getCards().result;
+        for(let card of cards){
+                if(card.id === cardId){
+                        const index = cards.findIndex( (element) => {
+                                return element.id === cardId;
+                        });
+                        cards.splice(index);
+                        saveCardsToStorage(cards);
+                        return success(cards);
+                }
+        }
+        return failure('no card deleted');
+}

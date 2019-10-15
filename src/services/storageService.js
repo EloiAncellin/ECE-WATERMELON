@@ -34,6 +34,20 @@ export function getWalletFromStorage(){
     return  success(JSON.parse(localStorage.getItem('wallet')));
 }
 
+export function getCardFormStorage(){
+     let cards;
+    try{
+        cards = JSON.parse(localStorage.getItem('cards'));
+        if(cards[0].id){
+            return success(cards);
+        }
+    }catch(e){
+        console.log('cards failure');
+        return failure(null);
+    }
+
+}
+
 
 // save functions
 export function saveUserToStorage(user){
@@ -57,6 +71,7 @@ export function saveWalletToStorage(wallet){
 }
 
 export function saveCardsToStorage(cards){
+    console.log(cards);
     if(cards === null || cards === undefined){
             return failure(cards);
         }else{

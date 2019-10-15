@@ -13,6 +13,7 @@ import {
 import Menu from "../Menu/Menu";
 import SendMoneyContainer from "./../SendMoney/SendMoneyContainer";
 import Cards from "../Card/Cards";
+import AddCard from "../AddCard/AddCard";
 
 class Header extends Component {
     constructor(props) {
@@ -63,6 +64,7 @@ class Header extends Component {
                     <Route path="/sendMoney" component={SendMoneyContainer}/>
                     <Route path="/SendMoneyContainer" component={SendMoneyContainer}/>
                     <Route path="/Cartes" component={Cards}/>
+                    <Route path="/addCard" component={AddCard}/>
                 </Router>
             </div>
 

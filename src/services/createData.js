@@ -33,3 +33,7 @@ export function createWallet(user) {
     saveWalletToStorage(wallet);
     return wallet;
 }
+
+export function createCards(){
+    return new Array();
+}
