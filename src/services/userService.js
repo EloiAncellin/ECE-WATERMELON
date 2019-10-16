@@ -1,9 +1,9 @@
-import {getUserCards} from "./apiService";
+import {getUserCards, getPayIns} from "./apiService";
 import "./apiService.js"
 import {failure, getUserWallet, success} from "./api/mock/server";
 import './storageService';
-import {getCardFormStorage, getUserFromStorage, getWalletFromStorage, saveCardsToStorage} from "./storageService";
-import {createCards, createWallet} from "./createData";
+import {getCardFormStorage, getUserFromStorage, getWalletFromStorage, saveCardsToStorage, getPayInsFormStorage} from "./storageService";
+import {createCards, createPayins, createWallet} from "./createData";
 
 export function saveUserToStorage(user){
         //let user =  authenticate('toto1@ece.fr', 'toto1');
@@ -51,6 +51,29 @@ export function getCards(){
 
         }
 }
+
+
+export function getUserPayIns(){
+        const payIns = getPayInsFormStorage();
+        if(payIns.status === "success"){
+                return success(payIns.result);
+        }else{
+                const user = getUserFromStorage();
+                if(user.status==="success"){
+                        let payIns = getPayIns(user.result.id);
+                        if(payIns.status==="success"){
+                                return success(payIns.result);
+                        }else{
+                                return success(createPayins(user));
+                        }
+
+                }
+        }
+}
+
+
+
+
 
 export function deleteCard(cardId){
         let cards = getCards().result;

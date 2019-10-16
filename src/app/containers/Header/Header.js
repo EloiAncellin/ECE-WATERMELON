@@ -13,7 +13,10 @@ import {
 import Menu from "../Menu/Menu";
 import SendMoneyContainer from "./../SendMoney/SendMoneyContainer";
 import Cards from "../Card/Cards";
-import AddCard from "../AddCard/AddCard";
+import AddCard from "../Card/AddCard/AddCard";
+import PayIns from "../PayIns/PayIns";
+import MakePayIn from "../PayIns/MakePayin";
+import EditCard from "../Card/EditCard/EditCard";
 
 class Header extends Component {
     constructor(props) {
@@ -52,6 +55,9 @@ class Header extends Component {
                                 <NavItem>
                                     <NavLink><Link to="/Cartes">Cartes</Link></NavLink>
                                 </NavItem>
+                                 <NavItem>
+                                    <NavLink><Link to="./Transfert">Transfert</Link></NavLink>
+                                </NavItem>
                                 <NavItem>
                                     <NavLink onClick={() => {
                                         this.disconnect()
@@ -65,6 +71,9 @@ class Header extends Component {
                     <Route path="/SendMoneyContainer" component={SendMoneyContainer}/>
                     <Route path="/Cartes" component={Cards}/>
                     <Route path="/addCard" component={AddCard}/>
+                    <Route path="/Transfert" component={PayIns}/>
+                    <Route path="/makeTransfert" component={MakePayIn}/>
+                    <Route path="/EditCards" component={EditCard}/>
                 </Router>
             </div>
 

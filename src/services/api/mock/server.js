@@ -27,8 +27,7 @@ export function failure(error) {
 // GET REQUESTS
 
 export function getUserWallet(userId) {
-    wait(100)
-
+    wait(100);
     for (let wallet of wallets) {
         if (wallet.user_id === userId) {
             return success(wallet)
@@ -36,7 +35,6 @@ export function getUserWallet(userId) {
     }
     return failure("user not found, or has no wallet")
 }
-
 export function getTransfersMade(userId) {
     wait(100)
 
@@ -56,11 +54,10 @@ export function getTransfersMade(userId) {
 
     return failure("user not found, or has no wallet")
 }
-
 export function getTransfersReceived(userId) {
     wait(100)
 
-    const walletRes = JSON.parse(getUserWallet(userId))
+    const walletRes = JSON.parse(getUserWallet(userId));
 
     if (walletRes.status === "success") {
         const wallet = walletRes.result
@@ -78,13 +75,11 @@ export function getTransfersReceived(userId) {
 }
 
 export function getPayIns(userId) {
-    wait(100)
-
-    const walletRes = JSON.parse(getUserWallet(userId))
-
+    wait(100);
+    const walletRes = getUserWallet(userId);
     if (walletRes.status === "success") {
-        const wallet = walletRes.result
-        const userPayIns = []
+        const wallet = walletRes.result;
+        const userPayIns = [];
         for (let payIn of payIns) {
             if (payIn.wallet_id === wallet.id) {
                 userPayIns.push(payIn)
@@ -182,21 +177,23 @@ export function transfer(fromUserId, toUserId, amount) {
 export function getMaxIdWallet() {
     let maximum = 0;
     for (let variable of wallets) {
-        if (variable.user_id > maximum) {
-            maximum = variable.user_id;
+        if (variable.id > maximum) {
+            maximum = variable.id;
         }
     }
     return maximum;
 }
 
 export function getMaxIdUser() {
-    let maximum = 0;
+    let vari = {maximum:0};
+    console.log(users);
     for (let variable of users) {
-        if (variable.user_id > maximum) {
-            maximum = variable.user_id;
+        if (variable.id > vari.maximum) {
+            console.log(variable.id);
+            vari.maximum = variable.id;
         }
     }
-    return maximum;
+    return vari.maximum;
 }
 
 export function getMaxIdCards() {

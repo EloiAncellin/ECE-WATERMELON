@@ -2,11 +2,9 @@ import React, {Component} from 'react';
 import {AddCardErrors} from './AddCardErrors.js';
 import './Form.css';
 import {Button, Form, FormGroup} from 'reactstrap';
-import {authenticate} from "../../../services/apiService";
-import {Redirect} from "react-router-dom";
-import {getMaxIdCards} from "../../../services/api/mock/server";
-import {getUserFromStorage, saveCardsToStorage} from "../../../services/storageService";
-import {getCards} from "../../../services/userService";
+import {getMaxIdCards} from "../../../../services/api/mock/server";
+import {getUserFromStorage, saveCardsToStorage} from "../../../../services/storageService";
+import {getCards} from "../../../../services/userService";
 
 class AddCard extends Component {
     constructor(props) {

@@ -5,6 +5,7 @@ import {saveUserToStorage, saveWalletToStorage} from "./storageService";
 
 export function createUser(email, firstName, lastName, password) {
     let maxId = getMaxIdUser();
+    console.log(maxId);
     maxId++;
     let user = {
         id: maxId,
@@ -19,7 +20,10 @@ export function createUser(email, firstName, lastName, password) {
 
 export function createCardList() {
     return {};
+}
 
+export function createPayins(){
+    return {};
 }
 
 export function createWallet(user) {

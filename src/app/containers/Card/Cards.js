@@ -28,7 +28,7 @@ class Cards extends Component {
     }
 
     goToAddCard(){
-        this.props.history.push('/AddCard');
+        this.props.history.push('/EditCard');
     }
 
     deleteCard(cardId){
@@ -37,6 +37,12 @@ class Cards extends Component {
             this.state.cards = cards.result;
             this.forceUpdate();
         }
+    }
+
+    editCard(cardId){
+        localStorage.setItem('cardId', cardId);
+        this.props.history.push('/EditCards');
+        console.log(cardId);
     }
 
     render(){
@@ -50,8 +56,9 @@ class Cards extends Component {
                                 <Card>
                                     <CardBody>
                                         <CardTitle>{brand}</CardTitle>
-                                        <CardSubtitle>{last_four}</CardSubtitle>
-                                        <CardText> {expires_at}</CardText>
+                                        <CardSubtitle>XXXX XXXX XXXX {last_four}</CardSubtitle>
+                                        <CardText>Date d'expiration: {expires_at}</CardText>
+                                        <Button  onClick={() => {this.editCard(id)}} className="danger"> Modifier</Button>
                                         <Button onClick={() => {this.deleteCard(id)}} className="danger">Supprimer</Button>
                                     </CardBody>
                                 </Card>

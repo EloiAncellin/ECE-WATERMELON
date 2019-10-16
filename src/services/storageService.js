@@ -48,6 +48,20 @@ export function getCardFormStorage(){
 
 }
 
+export function getPayInsFormStorage(){
+     let payIns;
+    try{
+        payIns = JSON.parse(localStorage.getItem('payIns'));
+        if(payIns[0].id){
+            return success(payIns);
+        }
+    }catch(e){
+        console.log('payIns failure');
+        return failure(null);
+    }
+
+}
+
 
 // save functions
 export function saveUserToStorage(user){

@@ -4,6 +4,7 @@ import './Form.css';
 import {Button, Form, FormGroup} from 'reactstrap';
 import {authenticate} from "../../../services/apiService";
 import {Redirect} from "react-router-dom";
+import {createUser} from "../../../services/createData";
 
 class SignUpContainer extends Component {
     constructor(props) {
@@ -82,13 +83,7 @@ class SignUpContainer extends Component {
     }
 
     onSubmit(){
-        const usr =
-            {
-                id: 100,
-                email : this.state.email,
-                firstName: this.state.firstName,
-                lastName: this.state.lastName
-            };
+        const usr = createUser(this.state.email, this.state.firstName, this.state.lastName, this.state.password);
         console.log(usr);
         localStorage.setItem('user', JSON.stringify(usr));
         console.log(usr);
