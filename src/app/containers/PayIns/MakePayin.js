@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {getUserFromStorage, saveWalletToStorage} from "../../../services/storageService";
-import {getCards, getWallet} from "../../../services/userService";
+import {getUserFromStorage, saveCardsToStorage, saveWalletToStorage} from "../../../services/storageService";
+import {getCards, getUserPayIns, getWallet} from "../../../services/userService";
 import Card from "@material-ui/core/Card";
 import CardTitle from "reactstrap/es/CardTitle";
 import CardBody from "reactstrap/es/CardBody";
@@ -8,6 +8,7 @@ import CardSubtitle from "reactstrap/es/CardSubtitle";
 import CardText from "reactstrap/es/CardText";
 import Button from "reactstrap/es/Button";
 import Input from "reactstrap/es/Input";
+import {doPayIn} from "../../../services/api/mock/server";
 
 
 class MakePayIn extends Component {
@@ -17,14 +18,16 @@ class MakePayIn extends Component {
             user: {},
             cards: {},
             wallet:{},
+            payIns:{},
             amount:0
         };
         const user = getUserFromStorage();
         this.state.user = user.result;
         this.state.cards = getCards().result;
+        this.state.payIns = getUserPayIns().result;
+        console.log(this.state.payIns);
         this.state.wallet = getWallet().result;
-        console.log(getCards());
-        console.log(this.state.cards);
+        saveCardsToStorage(this.state.cards);
         this.onSumbit = this.onSumbit.bind(this);
     }
 
@@ -38,10 +41,11 @@ class MakePayIn extends Component {
     //goTo
     onSumbit(cardId){
         console.log(cardId);
-        console.log(typeof(this.state.amount));
+        let test = getUserPayIns();
+        console.log(test.result);
+        doPayIn(parseInt(this.state.amount));
+        this.state.wallet.balance = parseInt(this.state.wallet.balance);
         this.state.wallet.balance += parseInt(this.state.amount);
-        //parseInt(this.state.wallet.amount);
-        //this.state.wallet.amount += ;
         saveWalletToStorage(this.state.wallet);
     }
 

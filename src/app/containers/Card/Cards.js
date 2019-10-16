@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 import Button from "reactstrap/es/Button";
-import {getUserFromStorage} from "../../../services/storageService";
+import {getUserFromStorage, saveCardsToStorage} from "../../../services/storageService";
 import {deleteCard, getCards} from "../../../services/userService";
 import Card from "@material-ui/core/Card";
 import CardTitle from "reactstrap/es/CardTitle";
 import CardBody from "reactstrap/es/CardBody";
 import CardSubtitle from "reactstrap/es/CardSubtitle";
 import CardText from "reactstrap/es/CardText";
-import Redirect from "react-router-dom/es/Redirect";
-
 
 class Cards extends Component {
     constructor(props) {
@@ -22,13 +20,14 @@ class Cards extends Component {
         const user = getUserFromStorage();
         this.state.user = user.result;
         this.state.cards = getCards().result;
+        saveCardsToStorage(this.state.cards);
 
         console.log(this.state.cards);
         console.log(this.state.user);
     }
 
     goToAddCard(){
-        this.props.history.push('/EditCard');
+        this.props.history.push('/addCard');
     }
 
     deleteCard(cardId){

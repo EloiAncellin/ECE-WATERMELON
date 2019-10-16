@@ -77,13 +77,14 @@ class AddCard extends Component {
     }
 
     onSubmit() {
-        console.log("rbgrebger");
         let maxId = getMaxIdCards() + 1;
         let userCards = getCards().result;
+        let last_four = this.state.numbers.substr(this.state.numbers.length -4);
+        console.log(last_four);
         const card =
             {
                 id: maxId,
-                last_four: "1111",
+                last_four: last_four,
                 brand: this.state.marque,
                 expires_at: this.state.endDate,
                 user_id: getUserFromStorage().result.id

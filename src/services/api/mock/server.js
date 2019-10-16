@@ -4,7 +4,13 @@ import {wallets} from './json/wallets.js';
 import {payIns} from './json/payIns.js';
 import {payOuts} from './json/payOuts.js';
 import {transfers} from './json/transfers.js';
-import {getCardFormStorage} from "../../storageService";
+import {
+    getCardFormStorage,
+    getPayOutsFormStorage,
+    getWalletFromStorage, savePayInsToStorage,
+    savePayOutsToStorage, saveWalletToStorage
+} from "../../storageService";
+import {getUserPayIns, getUserPayOuts, getWallet} from "../../userService";
 
 function wait(ms) {
     //sleep(ms)
@@ -35,6 +41,7 @@ export function getUserWallet(userId) {
     }
     return failure("user not found, or has no wallet")
 }
+
 export function getTransfersMade(userId) {
     wait(100)
 
@@ -54,6 +61,7 @@ export function getTransfersMade(userId) {
 
     return failure("user not found, or has no wallet")
 }
+
 export function getTransfersReceived(userId) {
     wait(100)
 
@@ -95,7 +103,7 @@ export function getPayIns(userId) {
 export function getPayOuts(userId) {
     wait(100)
 
-    const walletRes = JSON.parse(getUserWallet(userId))
+    const walletRes = getWallet();
 
     if (walletRes.status === "success") {
         const wallet = walletRes.result
@@ -172,10 +180,53 @@ export function transfer(fromUserId, toUserId, amount) {
     return failure("at least one user_id not found")
 }
 
+export function doPayOut(amount) {
+    let payOuts = getUserPayOuts().result;
+    let wallet = getWallet().result;
+    console.log(wallet);
+    let payOut = {
+        id: getMaxIdPayout(),
+        wallet_id: wallet.id,
+        amount: amount
+    };
+    console.log(payOuts);
+    payOuts.push(payOut);
+    wallet.balance-=amount;
+    savePayOutsToStorage(payOuts);
+    saveWalletToStorage(wallet);
+}
+
+
+export function doPayIn(amount) {
+    let payIns = getUserPayIns().result;
+    console.log(payIns);
+    let wallet = getWallet().result;
+    let payIn = {
+        id: getMaxIdPayout(),
+        wallet_id: wallet.id,
+        amount: amount
+    };
+    payIns.push(payIn);
+    savePayInsToStorage(payIns);
+    return(payIns);
+}
+
+
+
+
 
 // get maxId
 export function getMaxIdWallet() {
+
+    let storedWallets = getWalletFromStorage();
+    let success = storedWallets.status;
+    storedWallets = storedWallets.result;
     let maximum = 0;
+    if(success === "success"){
+        for(let elem of storedWallets){
+            payOuts.push(elem);
+        }
+    }
     for (let variable of wallets) {
         if (variable.id > maximum) {
             maximum = variable.id;
@@ -184,8 +235,27 @@ export function getMaxIdWallet() {
     return maximum;
 }
 
+export function getMaxIdPayout() {
+    let storedPayOut = getPayOutsFormStorage();
+    let success = storedPayOut.status;
+    storedPayOut = storedPayOut.result;
+    let maximum = 0;
+    if(success === "success"){
+        for(let elem of storedPayOut){
+            payOuts.push(elem);
+        }
+    }
+
+    for (let variable of payOuts) {
+        if (variable.id > maximum) {
+            maximum = variable.id;
+        }
+    }
+    return maximum;
+}
+
 export function getMaxIdUser() {
-    let vari = {maximum:0};
+    let vari = {maximum: 0};
     console.log(users);
     for (let variable of users) {
         if (variable.id > vari.maximum) {
@@ -198,18 +268,17 @@ export function getMaxIdUser() {
 
 export function getMaxIdCards() {
     let storedCards = getCardFormStorage();
+    let success = storedCards.status;
+    storedCards = storedCards.result;
     let maximum = 0;
-    if (storedCards.status === "success") {
-        for (let variable of storedCards.result) {
-            if (variable.id > maximum) {
-                maximum = variable.user_id;
-            }
+    if(success === "success"){
+        for(let elem of storedCards){
+            cards.push(elem);
         }
-    } else {
-        for (let variable of cards) {
-            if (variable.id > maximum) {
-                maximum = variable.user_id;
-            }
+    }
+    for (let variable of cards) {
+        if (variable.id > maximum) {
+            maximum = variable.user_id;
         }
     }
     return maximum;

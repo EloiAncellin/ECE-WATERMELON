@@ -1,6 +1,6 @@
 import './api/mock/server'
 import {getMaxIdUser, getMaxIdWallet} from "./api/mock/server";
-import {saveUserToStorage, saveWalletToStorage} from "./storageService";
+import {getUserFromStorage, saveUserToStorage, saveWalletToStorage} from "./storageService";
 
 
 export function createUser(email, firstName, lastName, password) {
@@ -22,13 +22,17 @@ export function createCardList() {
     return {};
 }
 
-export function createPayins(){
-    return {};
+export function createPayIns(){
+    return [];
+}
+export function createPayOuts(){
+    return [];
 }
 
-export function createWallet(user) {
+export function createWallet() {
     let maxId = getMaxIdWallet();
     maxId++;
+    const user = getUserFromStorage().result;
     let wallet= {
 		id: maxId,
 		user_id: user.id,
@@ -39,5 +43,5 @@ export function createWallet(user) {
 }
 
 export function createCards(){
-    return new Array();
+    return [];
 }

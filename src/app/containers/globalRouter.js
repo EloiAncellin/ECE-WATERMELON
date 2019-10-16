@@ -14,13 +14,9 @@ class GlobalRouter extends Component {
             userStatus: ""
         };
         let storageUser = getUserFromStorage();
-        console.log(storageUser);
         this.state.userStatus = storageUser.status;
-        console.log(this.state.userStatus);
         if (storageUser.status === "success") {
             this.state.user = storageUser.result;
-            console.log(this.state.user);
-            console.log(this.state.user.id);
         } else {
 
         }

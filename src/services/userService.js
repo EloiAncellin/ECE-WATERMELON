@@ -1,9 +1,16 @@
-import {getUserCards, getPayIns} from "./apiService";
+import {getUserCards, getPayIns, getPayOuts} from "./apiService";
 import "./apiService.js"
 import {failure, getUserWallet, success} from "./api/mock/server";
 import './storageService';
-import {getCardFormStorage, getUserFromStorage, getWalletFromStorage, saveCardsToStorage, getPayInsFormStorage} from "./storageService";
-import {createCards, createPayins, createWallet} from "./createData";
+import {
+        getCardFormStorage,
+        getUserFromStorage,
+        getWalletFromStorage,
+        saveCardsToStorage,
+        getPayInsFormStorage,
+        getPayOutsFormStorage
+} from "./storageService";
+import {createCards, createPayIns, createWallet, createPayOuts} from "./createData";
 
 export function saveUserToStorage(user){
         //let user =  authenticate('toto1@ece.fr', 'toto1');
@@ -25,8 +32,10 @@ export function getWallet(){
                 if(user.status==="success"){
                         let userwallet = getUserWallet(user.result.id);
                         if(userwallet.status==="success"){
+                                console.log("testtoto");
                                 return success(userwallet.result);
                         }else{
+                                console.log("gzegg");
                                 return success(createWallet(user));
                         }
 
@@ -64,7 +73,24 @@ export function getUserPayIns(){
                         if(payIns.status==="success"){
                                 return success(payIns.result);
                         }else{
-                                return success(createPayins(user));
+                                return success(createPayIns(user));
+                        }
+                }
+        }
+}
+
+export function getUserPayOuts(){
+        const payIns = getPayOutsFormStorage();
+        if(payIns.status === "success"){
+                return success(payIns.result);
+        }else{
+                const user = getUserFromStorage();
+                if(user.status==="success"){
+                        let payOuts = getPayOuts(user.result.id);
+                        if(payIns.status==="success"){
+                                return success(payOuts.result);
+                        }else{
+                                return success(createPayOuts(user));
                         }
 
                 }
@@ -74,15 +100,17 @@ export function getUserPayIns(){
 
 
 
-
 export function deleteCard(cardId){
         let cards = getCards().result;
+        console.log(cards);
+
         for(let card of cards){
                 if(card.id === cardId){
+                        console.log("tet");
                         const index = cards.findIndex( (element) => {
                                 return element.id === cardId;
                         });
-                        cards.splice(index);
+                        cards.splice(index,1);
                         saveCardsToStorage(cards);
                         return success(cards);
                 }
