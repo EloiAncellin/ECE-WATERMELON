@@ -2,15 +2,12 @@ import React, {Component} from 'react';
 import {PayOutsErrors} from './PayOutsErrors.js';
 import './Form.css';
 import {Button, Form, FormGroup} from 'reactstrap';
-import {authenticate} from "../../../services/apiService";
-import {Redirect} from "react-router-dom";
 import {getUserPayOuts} from "../../../services/userService";
 import {doPayOut} from "../../../services/api/mock/server";
 import CardBody from "reactstrap/es/CardBody";
 import Card from "@material-ui/core/Card";
 import CardTitle from "reactstrap/es/CardTitle";
 import CardSubtitle from "reactstrap/es/CardSubtitle";
-import CardText from "reactstrap/es/CardText";
 
 class PayOutsContainer extends Component {
     constructor(props) {
@@ -20,7 +17,7 @@ class PayOutsContainer extends Component {
             firstName: '',
             lastName: '',
             iban: '',
-            amount: '',
+            amount: 0,
             formErrors: {firstName: '', lastName: '', iban: '', amount: ''},
             firstNameValid: false,
             lastNameValid: true,
@@ -35,7 +32,12 @@ class PayOutsContainer extends Component {
 
     handleUserInput = (e) => {
         const name = e.target.name;
-        const value = e.target.value;
+        let value;
+        if( name === 'amount' &&  e.target.value<0){
+            value = 0;
+        } else{
+            value = e.target.value;
+        }
         this.setState({[name]: value},
             () => {
                 this.validateField(name, value)
@@ -52,11 +54,11 @@ class PayOutsContainer extends Component {
 
         switch (fieldName) {
             case 'firstName':
-                firstNameValid = true;
+                firstNameValid = value.match(/^[a-zA-Z\s]+$/);
                 fieldValidationErrors.firstName = firstNameValid ? '' : ' is invalid';
                 break;
             case 'lastName':
-                lastNameValid = true;
+                lastNameValid = value.match(/^[a-zA-Z\s]+$/);
                 fieldValidationErrors.lastName = lastNameValid ? '' : ' is too short';
                 break;
             case 'iban':
@@ -85,7 +87,6 @@ class PayOutsContainer extends Component {
                 this.state.lastNameValid &&
                 this.state.ibanValid &&
                 this.state.amountValid});
-        console.log(this.state);
     }
 
     errorClass(error) {
@@ -94,7 +95,6 @@ class PayOutsContainer extends Component {
 
     onSubmit() {
         let payOuts = getUserPayOuts();
-        console.log(payOuts);
         doPayOut(this.state.amount);
     }
 

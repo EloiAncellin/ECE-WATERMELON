@@ -1,0 +1,15 @@
+
+
+.container{
+    margin-top: 50px;
+    display: block;
+    text-align: center;
+}
+.bonjour>*{
+    margin: 10px;
+    background-color: #3291a8;
+}
+.bonjour{
+            cursor: pointer;
+
+}

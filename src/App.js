@@ -8,6 +8,7 @@ import {
 import {getUserFromStorage} from "./services/storageService";
 import "./app/containers/Menu/Menu"
 import GlobalRouter from "./app/containers/globalRouter";
+import "./app/styles/app.css";
 
 
 function App() {

@@ -3,8 +3,6 @@ import SendMoney from '../../components/SendMoney.js';
 import {getUserFromMail, transfer} from "../../../services/apiService";
 import {
     getUserFromStorage,
-    getWalletFromStorage,
-    saveUserToStorage,
     saveWalletToStorage
 } from "../../../services/storageService";
 import {
@@ -30,7 +28,6 @@ class SendMoneyContainer extends React.Component {
         try{
 
         this.state.user = getUserFromStorage();
-        console.log(this.state.user.result);
         if(this.state.user.status === "success"){
             this.state.user = this.state.user.result;
         }else{
@@ -38,7 +35,6 @@ class SendMoneyContainer extends React.Component {
         }
 
         this.state.userWallet = getWallet();
-        console.log(this.state.userWallet);
         if(this.state.userWallet.status === 'success'){
             this.state.userWallet = this.state.userWallet.result;
         }else{
@@ -60,12 +56,17 @@ class SendMoneyContainer extends React.Component {
         if (event.target.name === 'desti') {
             this.setState({desti: event.target.value});
         } else {
-            this.setState({amount: event.target.value});
+            let value;
+            if(event.target.value>=0){
+            value = event.target.value;
+        }else{
+            value = 0;
+        }
+            this.setState({amount: value});
         }
     }
 
     handleSubmit(){
-        console.log(this.state.userWallet.balance);
         this.state.amount = Number(this.state.amount);
         this.state.userWallet.balance-= this.state.amount;
         saveWalletToStorage(this.state.userWallet);
@@ -76,16 +77,13 @@ class SendMoneyContainer extends React.Component {
         localStorage.setItem('wallet', null);
         return(
             <Redirect to='/menu'/>
-        )
-        this.props.history.push('/menu');
-        return true;
+        );
     }
 
     render() {
         return (
             <div>
-                <p>Your balance : {this.state.userWallet.balance}</p>
-                <SendMoney desti={this.state.desti} amount={this.state.amount} handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>
+                <SendMoney balance={this.state.userWallet.balance} desti={this.state.desti} amount={this.state.amount} handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>
             </div>
             );
     }

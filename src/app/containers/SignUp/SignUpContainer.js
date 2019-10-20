@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {SignUpErrors} from './SignUpErrors.js';
 import './Form.css';
 import {Button, Form, FormGroup} from 'reactstrap';
-import {authenticate} from "../../../services/apiService";
 import {Redirect} from "react-router-dom";
 import {createUser} from "../../../services/createData";
 
@@ -69,7 +68,6 @@ class SignUpContainer extends Component {
             firstNameValid: firstNameValid,
             lastNameValid: lastNameValid
         }, this.validateForm);
-        console.log(this.state);
     }
 
     validateForm() {
@@ -84,9 +82,7 @@ class SignUpContainer extends Component {
 
     onSubmit(){
         const usr = createUser(this.state.email, this.state.firstName, this.state.lastName, this.state.password);
-        console.log(usr);
         localStorage.setItem('user', JSON.stringify(usr));
-        console.log(usr);
         return(<Redirect to='/menu'/>)
 
     }

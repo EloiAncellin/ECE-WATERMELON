@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import {EditCardErrors} from './EditCardErrors.js';
 import './Form.css';
 import {Button, Form, FormGroup} from 'reactstrap';
-import {getMaxIdCards} from "../../../../services/api/mock/server";
-import {getUserFromStorage, saveCardsToStorage} from "../../../../services/storageService";
 import {getCards} from "../../../../services/userService";
+import {editCard} from "../../../../services/apiService";
 
 class EditCard extends Component {
     constructor(props) {
@@ -18,7 +17,7 @@ class EditCard extends Component {
             marqueValid: false,
             numbersValid: true,
             endDateValid: true,
-            formValid: false,
+            formValid: true,
             card: {}
         };
         this.cardId = parseInt(localStorage.getItem('cardId'));
@@ -31,7 +30,6 @@ class EditCard extends Component {
         this.state.marque = this.state.card.brand;
         this.state.numbers = this.state.card.last_four;
         this.state.endDate = this.state.card.expires_at;
-        console.log(this.state.card);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
@@ -53,15 +51,15 @@ class EditCard extends Component {
 
         switch (fieldName) {
             case 'marque':
-                marqueValid = true;
+                marqueValid = value.match(/^[a-zA-Z\s]+$/);
                 fieldValidationErrors.marque = marqueValid ? '' : ' is invalid';
                 break;
             case 'numbers':
-                numbersValid = true;
+                numbersValid = value.match([0-9999]) || (value.length===4);
                 fieldValidationErrors.numbers = numbersValid ? '' : ' is too short';
                 break;
             case 'endDate':
-                endDateValid = true;
+                endDateValid = value.match(/^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/);
                 fieldValidationErrors.endDate = endDateValid ? '' : 'is tooshort';
                 break;
             default:
@@ -73,7 +71,6 @@ class EditCard extends Component {
             numbersValid: numbersValid,
             endDateValid: endDateValid
         }, this.validateForm);
-        console.log(this.state);
     }
 
     validateForm() {
@@ -89,19 +86,7 @@ class EditCard extends Component {
     }
 
     onSubmit() {
-        console.log("rbgrebger");
-        let maxId = getMaxIdCards() + 1;
-        let userCards = getCards().result;
-        const card =
-            {
-                id: maxId,
-                last_four: "1111",
-                brand: this.state.marque,
-                expires_at: this.state.endDate,
-                user_id: getUserFromStorage().result.id
-            };
-        userCards.push(card);
-        saveCardsToStorage(userCards);
+        editCard(this.cardId, this.state.marque, this.state.numbers, this.state.endDate);
         this.props.history.push('/Cartes');
 
     }

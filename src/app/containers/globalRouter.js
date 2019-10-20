@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 
 import {getUserFromStorage} from "../../services/storageService";
 import Connect from "./Connect";
-import Menu from "./Menu/Menu";
 import Header from "./Header/Header";
 
 

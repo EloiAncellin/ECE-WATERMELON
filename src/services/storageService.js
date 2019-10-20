@@ -11,8 +11,6 @@ export function getUserFromStorage() {
             return failure(null);
         }
     } catch (e) {
-        console.log(e.toString());
-        console.log('user failure');
         return failure(null);
     }
 
@@ -27,7 +25,6 @@ export function getWalletFromStorage() {
             return success(wallet);
         }
     } catch (e) {
-        console.log('wallet failure');
         return failure(null);
     }
 
@@ -38,16 +35,12 @@ export function getCardFormStorage() {
     let cards;
     try {
         cards = JSON.parse(localStorage.getItem('cards'));
-        console.log(cards);
-        console.log(typeof (cards));
         if (cards === null || cards === undefined || cards === "undefined" || cards === "undefined") {
-            console.log("erreur");
             return failure("pas de cartes en mémoire")
         } else {
             return success(cards);
         }
     } catch (e) {
-        console.log('cards failure');
         return failure(null);
     }
 
@@ -61,7 +54,6 @@ export function getPayInsFormStorage() {
             return success(payIns);
         }
     } catch (e) {
-        console.log('payIns failure');
         return failure(null);
     }
 
@@ -75,7 +67,6 @@ export function getPayOutsFormStorage() {
             return success(payOuts);
         }
     } catch (e) {
-        console.log('payOuts failure');
         return failure(null);
     }
 

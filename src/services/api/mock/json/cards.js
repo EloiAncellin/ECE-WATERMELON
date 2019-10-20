@@ -2,7 +2,7 @@ export const cards = [
 	{
 		id: 1,
 		last_four: "1111",
-		brand: "master_card",
+		brand: "mastercard",
 		expires_at: "01/01/2020",
 		user_id: 1
 	},
@@ -16,7 +16,7 @@ export const cards = [
 	{
 		id: 3,
 		last_four: "3333",
-		brand: "american_express",
+		brand: "americanExpress",
 		expires_at: "01/01/2024",
 		user_id: 2
 	}

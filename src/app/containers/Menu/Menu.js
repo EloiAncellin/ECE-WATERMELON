@@ -9,8 +9,7 @@ import CardBody from "reactstrap/es/CardBody";
 import Card from "@material-ui/core/Card";
 import CardTitle from "reactstrap/es/CardTitle";
 import CardSubtitle from "reactstrap/es/CardSubtitle";
-import CardText from "reactstrap/es/CardText";
-import Button from "@material-ui/core/Button";
+import "./../../styles/menu.css";
 
 
 class Menu extends Component {
@@ -31,13 +30,11 @@ class Menu extends Component {
 
             if (this.state.user.status === "success") {
                 this.state.user = this.state.user.result;
-                console.log(this.state.user);
             } else {
                 //this.props.history.push('/protected');
             }
 
             this.state.userWallet = getWallet();
-            console.log(this.state.userWallet.result);
             if (this.state.userWallet.status === 'success') {
                 this.state.userWallet = this.state.userWallet.result;
             } else {
@@ -61,30 +58,31 @@ class Menu extends Component {
     }
 
     goToEnvoyerArgent() {
-        /*return (
-            <Redirect to='/SendMoneyContainer'/>
-        );*/
         this.props.history.push('/SendMoneyContainer');
     }
 
     goToCards() {
         this.props.history.push('/Cartes');
     }
+    goToDepot(){
+        this.props.history.push('/Transfert');
+    }
 
     render() {
         return (
-            <div>
-                <Card className="col-lg-4">
-                    <CardBody>
-                        <CardTitle>{this.state.user.first_name} {this.state.user.last_name} </CardTitle>
-                        <CardSubtitle>Balance du compte : {this.state.userWallet.balance}</CardSubtitle>
-                    </CardBody>
-                </Card>
-
-                <div className="col-lg-4">
-                    <Paper>
+            <div className="container col-lg-4">
+                <div className="row ">
+                    <Card className=" test offset-3">
+                        <CardBody>
+                            <CardTitle>{this.state.user.first_name} {this.state.user.last_name} </CardTitle>
+                            <CardSubtitle>Balance du compte : {this.state.userWallet.balance}</CardSubtitle>
+                        </CardBody>
+                    </Card>
+                </div>
+                <div className="bonjour">
+                    <Paper onClick={ () => {this.goToDepot()}}>
                         <Typography variant="h6" component="h2">
-                            Virer vers une banque
+                            Déposer de l'argent
                         </Typography>
                     </Paper>
                     <Paper onClick={() => {

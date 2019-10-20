@@ -41,15 +41,15 @@ class AddCard extends Component {
 
         switch (fieldName) {
             case 'marque':
-                marqueValid = true;
+                marqueValid =  value.match(/^[a-zA-Z\s]+$/);
                 fieldValidationErrors.marque = marqueValid ? '' : ' is invalid';
                 break;
             case 'numbers':
-                numbersValid = true;
-                fieldValidationErrors.numbers = numbersValid ? '' : ' is too short';
+                numbersValid = value.match([0-9999]) || (value.length===4);
+                fieldValidationErrors.numbers = numbersValid ? '' : ' Doit être 4 numéros';
                 break;
             case 'endDate':
-                endDateValid = true;
+                endDateValid = value.match(/^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/);
                 fieldValidationErrors.endDate = endDateValid ? '' : 'is tooshort';
                 break;
             default:
@@ -61,7 +61,6 @@ class AddCard extends Component {
             numbersValid: numbersValid,
             endDateValid: endDateValid
         }, this.validateForm);
-        console.log(this.state);
     }
 
     validateForm() {
@@ -80,7 +79,6 @@ class AddCard extends Component {
         let maxId = getMaxIdCards() + 1;
         let userCards = getCards().result;
         let last_four = this.state.numbers.substr(this.state.numbers.length -4);
-        console.log(last_four);
         const card =
             {
                 id: maxId,
@@ -115,7 +113,7 @@ class AddCard extends Component {
                     <div className={`form-group ${this.errorClass(this.state.formErrors.numbers)}`}>
                         <label htmlFor="numbers">Numéros</label>
                         <input type="numbers" className="form-control" name="numbers"
-                               placeholder="XXXX XXXX XXXX XXXX XXXX"
+                               placeholder="XXXX"
                                value={this.state.numbers}
                                onChange={this.handleUserInput}/>
                     </div>

@@ -5,7 +5,6 @@ import {getUserFromStorage, saveUserToStorage, saveWalletToStorage} from "./stor
 
 export function createUser(email, firstName, lastName, password) {
     let maxId = getMaxIdUser();
-    console.log(maxId);
     maxId++;
     let user = {
         id: maxId,

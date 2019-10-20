@@ -16,37 +16,48 @@ class MakePayIn extends Component {
         super(props);
         this.state = {
             user: {},
-            cards: {},
-            wallet:{},
-            payIns:{},
-            amount:0
+            card: "",
+            wallet: {},
+            payIns: {},
+            amount: 0,
+            cardId: 0
         };
+        this.state.cardId = parseInt(localStorage.getItem("cardId"));
+
         const user = getUserFromStorage();
         this.state.user = user.result;
-        this.state.cards = getCards().result;
+        let cards = getCards().result;
+        for (let card of cards) {
+            if (card.id === this.state.cardId) {
+                this.state.card = card;
+            }
+        }
         this.state.payIns = getUserPayIns().result;
-        console.log(this.state.payIns);
         this.state.wallet = getWallet().result;
         saveCardsToStorage(this.state.cards);
-        this.onSumbit = this.onSumbit.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     handleUserInput = (e) => {
         const name = e.target.name;
-        const value = e.target.value;
+        let value;
+        if(e.target.value>=0){
+            value = e.target.value;
+        }else{
+            value = 0;
+        }
         this.setState({[name]: value});
-        localStorage.setItem(name,value);
-        console.log(this.state);
+        localStorage.setItem(name, value);
     };
+
     //goTo
-    onSumbit(cardId){
-        console.log(cardId);
+    onSubmit(cardId) {
         let test = getUserPayIns();
-        console.log(test.result);
         doPayIn(parseInt(this.state.amount));
         this.state.wallet.balance = parseInt(this.state.wallet.balance);
-        this.state.wallet.balance += parseInt(this.state.amount);
+        this.state.wallet.balance += parseFloat(this.state.amount);
         saveWalletToStorage(this.state.wallet);
+        this.props.history.push('/transfert');
     }
 
     render() {
@@ -54,24 +65,22 @@ class MakePayIn extends Component {
             <div>
                 <section className="userList">
                     <ul>
-                        {this.state.cards.map(({id, brand, last_four, expires_at}) => (
-                            <div className="col-lg-4">
-                                <Card>
-                                    <CardBody>
-                                        <CardTitle>{brand}</CardTitle>
-                                        <CardSubtitle>XXXX XXXX XXXX {last_four}</CardSubtitle>
-                                        <CardText>Date d'expiration: {expires_at}</CardText>
-                                        <Input type={'number'}
-                                               name={'amount'}
-                                               value={this.state.amount}
-                                               onChange={this.handleUserInput} />
-                                        <Button onClick={() => {
-                                            this.onSumbit(id)
-                                        }} className="danger">Utiliser</Button>
-                                    </CardBody>
-                                </Card>
-                            </div>
-                        ))}
+                        <div className="col-lg-4">
+                            <Card>
+                                <CardBody>
+                                    <CardTitle>{this.state.card.brand}</CardTitle>
+                                    <CardSubtitle>XXXX XXXX XXXX {this.state.card.last_four}</CardSubtitle>
+                                    <CardText>Date d'expiration: {this.state.card.expires_at}</CardText>
+                                    <Input type={'number'}
+                                           name={'amount'}
+                                           value={this.state.amount}
+                                           onChange={this.handleUserInput}/>
+                                    <Button onClick={() => {
+                                        this.onSubmit(this.state.card.id)
+                                    }} className="danger">Utiliser</Button>
+                                </CardBody>
+                            </Card>
+                        </div>
                     </ul>
                 </section>
             </div>

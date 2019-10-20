@@ -18,6 +18,7 @@ import PayIns from "../PayIns/PayIns";
 import MakePayIn from "../PayIns/MakePayin";
 import EditCard from "../Card/EditCard/EditCard";
 import PayOutsContainer from "../PayOuts/PayOutsContainer";
+import Redirect from "react-router-dom/es/Redirect";
 
 class Header extends Component {
     constructor(props) {
@@ -79,9 +80,11 @@ class Header extends Component {
                     <Route path="/makeTransfert" component={MakePayIn}/>
                     <Route path="/EditCards" component={EditCard}/>
                     <Route path="/SendToAccount" component={PayOutsContainer}/>
-                </Router>
-            </div>
+                    <Redirect from="Header" to="/menu"/>
 
+                </Router>
+
+            </div>
         );
     }
 

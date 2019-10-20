@@ -7,7 +7,7 @@ import {transfers} from './json/transfers.js';
 import {
     getCardFormStorage,
     getPayOutsFormStorage,
-    getWalletFromStorage, savePayInsToStorage,
+    getWalletFromStorage, saveCardsToStorage, savePayInsToStorage,
     savePayOutsToStorage, saveWalletToStorage
 } from "../../storageService";
 import {getUserPayIns, getUserPayOuts, getWallet} from "../../userService";
@@ -43,13 +43,13 @@ export function getUserWallet(userId) {
 }
 
 export function getTransfersMade(userId) {
-    wait(100)
+    wait(100);
 
-    const walletRes = JSON.parse(getUserWallet(userId))
+    const walletRes = JSON.parse(getUserWallet(userId));
 
     if (walletRes.status === "success") {
-        const wallet = walletRes.result
-        const transfersMade = []
+        const wallet = walletRes.result;
+        const transfersMade = [];
         for (let transfer of transfers) {
             if (transfer.from_wallet_id === wallet.id) {
                 transfersMade.push(transfer)
@@ -63,13 +63,13 @@ export function getTransfersMade(userId) {
 }
 
 export function getTransfersReceived(userId) {
-    wait(100)
+    wait(100);
 
     const walletRes = JSON.parse(getUserWallet(userId));
 
     if (walletRes.status === "success") {
-        const wallet = walletRes.result
-        const transfersMade = []
+        const wallet = walletRes.result;
+        const transfersMade = [];
         for (let transfer of transfers) {
             if (transfer.to_wallet_id === wallet.id) {
                 transfersMade.push(transfer)
@@ -100,14 +100,14 @@ export function getPayIns(userId) {
     return failure("user not found, or has no wallet")
 }
 
-export function getPayOuts(userId) {
-    wait(100)
+export function getPayOuts() {
+    wait(100);
 
     const walletRes = getWallet();
 
     if (walletRes.status === "success") {
-        const wallet = walletRes.result
-        const userPayOuts = []
+        const wallet = walletRes.result;
+        const userPayOuts = [];
         for (let payOut of payOuts) {
             if (payOut.wallet_id === wallet.id) {
                 userPayOuts.push(payOut)
@@ -121,11 +121,11 @@ export function getPayOuts(userId) {
 }
 
 export function getCards(userId) {
-    wait(100)
+    wait(100);
 
-    const userCards = []
+    const userCards = [];
     for (let card of cards) {
-        if (card.user_id == userId) {
+        if (card.user_id === userId) {
             userCards.push(card)
         }
     }
@@ -134,7 +134,7 @@ export function getCards(userId) {
 }
 
 export function authenticate(email, password) {
-    wait(500)
+    wait(500);
 
     for (let user of users) {
         if (user.email === email && user.password === password) {
@@ -157,14 +157,12 @@ export function getUserFromMail(email) {
 // UPDATE REQUESTS
 
 export function transfer(fromUserId, toUserId, amount) {
-    wait(500)
+    wait(500);
 
     const fromWallet = JSON.parse(getUserWallet(fromUserId));
     const toWallet = JSON.parse(getUserWallet(toUserId));
-    console.log(fromUserId);
-    console.log(toUserId);
     if (fromWallet.status === "success" && toWallet.status === "success") {
-        const newId = transfers[transfers.length - 1].id + 1
+        const newId = transfers[transfers.length - 1].id + 1;
         const transfer = {
             id: newId,
             from_wallet_id: fromWallet.result.id,
@@ -183,15 +181,13 @@ export function transfer(fromUserId, toUserId, amount) {
 export function doPayOut(amount) {
     let payOuts = getUserPayOuts().result;
     let wallet = getWallet().result;
-    console.log(wallet);
     let payOut = {
         id: getMaxIdPayout(),
         wallet_id: wallet.id,
         amount: amount
     };
-    console.log(payOuts);
     payOuts.push(payOut);
-    wallet.balance-=amount;
+    wallet.balance -= amount;
     savePayOutsToStorage(payOuts);
     saveWalletToStorage(wallet);
 }
@@ -199,7 +195,6 @@ export function doPayOut(amount) {
 
 export function doPayIn(amount) {
     let payIns = getUserPayIns().result;
-    console.log(payIns);
     let wallet = getWallet().result;
     let payIn = {
         id: getMaxIdPayout(),
@@ -208,11 +203,27 @@ export function doPayIn(amount) {
     };
     payIns.push(payIn);
     savePayInsToStorage(payIns);
-    return(payIns);
+    return (payIns);
 }
 
+export function editCard(cardId, brand, numbers, expiresAt) {
+    let userCards = getCards().result;
+    try {
+        for (let card of cards) {
+            if (card.id === cardId){
+                card.brand = brand;
+                card.last_four = numbers;
+                card.expires_at = expiresAt;
+                saveCardsToStorage(cards);
+                return success(cards);
+            }
+        }
+    } catch (e) {
+        return failure('error');
+    }
 
 
+}
 
 
 // get maxId
@@ -222,8 +233,8 @@ export function getMaxIdWallet() {
     let success = storedWallets.status;
     storedWallets = storedWallets.result;
     let maximum = 0;
-    if(success === "success"){
-        for(let elem of storedWallets){
+    if (success === "success") {
+        for (let elem of storedWallets) {
             payOuts.push(elem);
         }
     }
@@ -240,8 +251,8 @@ export function getMaxIdPayout() {
     let success = storedPayOut.status;
     storedPayOut = storedPayOut.result;
     let maximum = 0;
-    if(success === "success"){
-        for(let elem of storedPayOut){
+    if (success === "success") {
+        for (let elem of storedPayOut) {
             payOuts.push(elem);
         }
     }
@@ -256,10 +267,8 @@ export function getMaxIdPayout() {
 
 export function getMaxIdUser() {
     let vari = {maximum: 0};
-    console.log(users);
     for (let variable of users) {
         if (variable.id > vari.maximum) {
-            console.log(variable.id);
             vari.maximum = variable.id;
         }
     }
@@ -271,8 +280,8 @@ export function getMaxIdCards() {
     let success = storedCards.status;
     storedCards = storedCards.result;
     let maximum = 0;
-    if(success === "success"){
-        for(let elem of storedCards){
+    if (success === "success") {
+        for (let elem of storedCards) {
             cards.push(elem);
         }
     }

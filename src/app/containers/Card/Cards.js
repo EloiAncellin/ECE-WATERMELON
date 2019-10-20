@@ -21,50 +21,54 @@ class Cards extends Component {
         this.state.user = user.result;
         this.state.cards = getCards().result;
         saveCardsToStorage(this.state.cards);
-
-        console.log(this.state.cards);
-        console.log(this.state.user);
     }
 
-    goToAddCard(){
+    goToAddCard() {
         this.props.history.push('/addCard');
     }
 
-    deleteCard(cardId){
+    deleteCard(cardId) {
         let cards = deleteCard(cardId);
-        if(cards.status === "success"){
+        if (cards.status === "success") {
             this.state.cards = cards.result;
             this.forceUpdate();
         }
     }
 
-    editCard(cardId){
+    editCard(cardId) {
         localStorage.setItem('cardId', cardId);
         this.props.history.push('/EditCards');
-        console.log(cardId);
     }
 
-    render(){
+    render() {
         return (
-            <div>
-                <Button onClick={() =>{this.goToAddCard()}}>Ajouter une carte</Button>
+            <div className="offset-4">
                 <section className="userList">
+                    <h2 className="offset-1">Vos cartes</h2>
                     <ul>
                         {this.state.cards.map(({id, brand, last_four, expires_at}) => (
-                            <div className="col-lg-4">
+                            <div className="col-lg-6">
                                 <Card>
                                     <CardBody>
                                         <CardTitle>{brand}</CardTitle>
                                         <CardSubtitle>XXXX XXXX XXXX {last_four}</CardSubtitle>
                                         <CardText>Date d'expiration: {expires_at}</CardText>
-                                        <Button  onClick={() => {this.editCard(id)}} className="danger"> Modifier</Button>
-                                        <Button onClick={() => {this.deleteCard(id)}} className="danger">Supprimer</Button>
+                                        <Button onClick={() => {
+                                            this.editCard(id)
+                                        }} className="danger"> Modifier</Button>
+                                        <Button onClick={() => {
+                                            this.deleteCard(id)
+                                        }} color="danger" className="danger">Supprimer</Button>
                                     </CardBody>
                                 </Card>
                             </div>
                         ))}
                     </ul>
                 </section>
+                <Button className="offset-1" onClick={() => {
+                    this.goToAddCard()
+                }}>Ajouter une carte</Button>
+
             </div>
         );
     }

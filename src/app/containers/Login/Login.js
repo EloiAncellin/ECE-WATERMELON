@@ -28,7 +28,6 @@ class Login extends Component {
                 this.validateField(name, value)
             });
         localStorage.setItem(name,value);
-        console.log(this.state);
     };
 
     validateField(fieldName, value) {
@@ -70,7 +69,6 @@ class Login extends Component {
         const user = authenticate(email, password);
         localStorage.setItem('user', JSON.stringify(user.result));
         //this.props.history.push('/protected');
-        console.log(user);
         return(<Redirect to='/menu'/>)
     }
 

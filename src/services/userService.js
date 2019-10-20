@@ -32,10 +32,8 @@ export function getWallet(){
                 if(user.status==="success"){
                         let userwallet = getUserWallet(user.result.id);
                         if(userwallet.status==="success"){
-                                console.log("testtoto");
                                 return success(userwallet.result);
                         }else{
-                                console.log("gzegg");
                                 return success(createWallet(user));
                         }
 
@@ -102,11 +100,9 @@ export function getUserPayOuts(){
 
 export function deleteCard(cardId){
         let cards = getCards().result;
-        console.log(cards);
 
         for(let card of cards){
                 if(card.id === cardId){
-                        console.log("tet");
                         const index = cards.findIndex( (element) => {
                                 return element.id === cardId;
                         });

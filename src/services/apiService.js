@@ -36,3 +36,7 @@ export function transfer(fromUserId, toUserId, amount){
 export function getUserFromMail(email){
     return mock.getUserFromMail(email);
 }
+
+export function editCard(cardId, brand, numbers, expiresAt){
+    return mock.editCard(cardId, brand, numbers, expiresAt);
+}
