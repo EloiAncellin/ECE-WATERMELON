@@ -93,7 +93,6 @@ class PayOutsContainer extends Component {
     }
 
     onSubmit() {
-        let payOuts = getUserPayOuts();
         doPayOut(this.state.amount);
     }
 

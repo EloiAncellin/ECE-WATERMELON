@@ -51,7 +51,6 @@ class MakePayIn extends Component {
 
     //goTo
     onSubmit(cardId) {
-        let test = getUserPayIns();
         doPayIn(parseInt(this.state.amount));
         this.state.wallet.balance = parseInt(this.state.wallet.balance);
         this.state.wallet.balance += parseFloat(this.state.amount);
