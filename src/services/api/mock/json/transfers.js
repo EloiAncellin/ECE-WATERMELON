@@ -12,7 +12,7 @@ export const transfers = [
 		amount: 2
 	},
 	{
-		id: 2,
+		id: 3,
 		from_wallet_id: 2,
 		to_wallet_id: 1,
 		amount: 1.1

@@ -10,18 +10,18 @@ export const payOuts = [
 		amount: 6
 	},
 	{
-		id: 2,
+		id: 3,
 		wallet_id: 2,
 		amount: 4.54
 	},
 	{
-		id: 3,
+		id: 4,
 		wallet_id: 2,
 		amount: 12.9
 	},
 	{
-		id: 4,
+		id: 5,
 		wallet_id: 2,
 		amount: 7.6
 	},
-] 
+]
