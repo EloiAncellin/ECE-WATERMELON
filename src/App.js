@@ -14,47 +14,6 @@ function App() {
     return (
         <GlobalRouter/>
     );
-
-    function PrivateRoute({children, ...rest}) {
-        let isAuthenticated = false;
-
-        let user = getUserFromStorage();
-
-        if (user.status === "success") {
-            isAuthenticated = true;
-        } else {
-            isAuthenticated = false;
-        }
-        return (
-            <Route
-                {...rest}
-                render={({location}) =>
-                    isAuthenticated ? (
-                        children
-                    ) : (
-                        <Redirect
-                            to={{
-                                pathname: "/login",
-                                state: {from: location}
-                            }}
-                        />
-                    )
-                }
-            />
-        );
-    }
-
-    function PublicPage() {
-        return <h3>Public</h3>;
-    }
-
-    function ProtectedPage() {
-        return (
-            <div>
-                <Header/>
-            </div>
-        );
-    }
 }
 
 export default App;
