@@ -221,8 +221,6 @@ export function editCard(cardId, brand, numbers, expiresAt) {
     } catch (e) {
         return failure('error');
     }
-
-
 }
 
 
@@ -291,5 +289,4 @@ export function getMaxIdCards() {
         }
     }
     return maximum;
-
 }
