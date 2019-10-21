@@ -39,6 +39,7 @@ class Header extends Component {
         localStorage.clear();
         window.location.reload();
     }
+
     render() {
         return (
             <div>
@@ -81,13 +82,10 @@ class Header extends Component {
                     <Route path="/EditCards" component={EditCard}/>
                     <Route path="/SendToAccount" component={PayOutsContainer}/>
                     <Redirect from="Header" to="/menu"/>
-
                 </Router>
-
             </div>
         );
     }
-
 }
 
 export default Header;

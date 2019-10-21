@@ -6,12 +6,10 @@ import CardBody from "reactstrap/es/CardBody";
 import "./../styles/sendMoney.css";
 
 class SendMoney extends React.Component {
-
     render() {
         return (
             <div>
                 <div className="container sendMoney col-lg-4">
-
                     <Card className=" test offset-3">
                         <CardBody>
                             <CardTitle>Solde : {this.props.balance} </CardTitle>
@@ -24,15 +22,13 @@ class SendMoney extends React.Component {
                                 <label htmlFor="desti">
                                     Destinataire:</label>
                                 <br/>
-                                <input name='desti' type="text" placeholder="Destinataire" value={this.props.desti}
-                                       onChange={this.props.handleChange}/>
+                                <input name='desti' type="text" placeholder="Destinataire" value={this.props.desti} onChange={this.props.handleChange}/>
                             </div>
                             <div>
                                 <label htmlFor="amount">
                                     Montant:</label>
                                 <br/>
-                                <input name='amount' type="number" value={this.props.amount}
-                                       onChange={this.props.handleChange}/>
+                                <input name='amount' type="number" value={this.props.amount} onChange={this.props.handleChange}/>
                             </div>
                         </div>
                         <br/>

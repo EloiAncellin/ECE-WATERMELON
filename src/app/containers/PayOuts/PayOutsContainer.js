@@ -33,15 +33,14 @@ class PayOutsContainer extends Component {
     handleUserInput = (e) => {
         const name = e.target.name;
         let value;
-        if( name === 'amount' &&  e.target.value<0){
+        if(name === 'amount' &&  e.target.value < 0){
             value = 0;
         } else{
             value = e.target.value;
         }
-        this.setState({[name]: value},
-            () => {
-                this.validateField(name, value)
-            });
+        this.setState({[name]: value}, () => {
+            this.validateField(name, value)
+        });
         localStorage.setItem(name, value);
     };
 
@@ -52,7 +51,7 @@ class PayOutsContainer extends Component {
         let ibanValid = this.state.ibanValid;
         let amountValid = this.state.amountValid;
 
-        switch (fieldName) {
+        switch(fieldName) {
             case 'firstName':
                 firstNameValid = value.match(/^[a-zA-Z\s]+$/);
                 fieldValidationErrors.firstName = firstNameValid ? '' : ' is invalid';
@@ -72,6 +71,7 @@ class PayOutsContainer extends Component {
             default:
                 break;
         }
+
         this.setState({
             formErrors: fieldValidationErrors,
             firstNameValid: firstNameValid,
@@ -79,14 +79,13 @@ class PayOutsContainer extends Component {
             ibanValid: ibanValid,
             amountValid : amountValid
         }, this.validateForm);
-
     }
 
     validateForm() {
         this.setState({formValid: this.state.firstNameValid &&
-                this.state.lastNameValid &&
-                this.state.ibanValid &&
-                this.state.amountValid});
+            this.state.lastNameValid &&
+            this.state.ibanValid &&
+            this.state.amountValid});
     }
 
     errorClass(error) {
@@ -100,7 +99,6 @@ class PayOutsContainer extends Component {
 
     render() {
         return (
-
             <div>
             <Form className="demoForm">
                 <h2>Transferer vers un compte</h2>

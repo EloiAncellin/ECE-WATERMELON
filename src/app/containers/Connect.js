@@ -10,11 +10,9 @@ import {
 import Login from "./Login/Login";
 import SignUpContainer from "./SignUp/SignUpContainer";
 
-
 class Connect extends Component {
-
-    render(){
-        return(
+    render() {
+        return (
           <div>
                 <Router>
                     <Navbar color="light" light expand="md">

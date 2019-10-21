@@ -34,12 +34,10 @@ class PayIns extends Component {
     goToMakePayin(cardId) {
         localStorage.setItem("cardId", cardId);
         this.props.history.push('/makeTransfert');
-
     }
 
     render() {
         return (
-
             <div className="cardsList offset-4 col-lg-4">
                 <h2>
                     Cliquez pour utiliser une carte

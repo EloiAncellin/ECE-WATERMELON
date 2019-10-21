@@ -10,14 +10,10 @@ import "./app/containers/Menu/Menu"
 import GlobalRouter from "./app/containers/globalRouter";
 import "./app/styles/app.css";
 
-
 function App() {
-
     return (
         <GlobalRouter/>
-        );
-
-
+    );
 
     function PrivateRoute({children, ...rest}) {
         let isAuthenticated = false;
@@ -48,7 +44,6 @@ function App() {
         );
     }
 
-
     function PublicPage() {
         return <h3>Public</h3>;
     }
@@ -60,8 +55,6 @@ function App() {
             </div>
         );
     }
-
-
 }
 
 export default App;

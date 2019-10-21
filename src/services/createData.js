@@ -16,15 +16,15 @@ export function createUser(email, firstName, lastName, password) {
     return user;
 }
 
-export function createCards(){
+export function createCards() {
     return [];
 }
 
-export function createPayIns(){
+export function createPayIns() {
     return [];
 }
 
-export function createPayOuts(){
+export function createPayOuts() {
     return [];
 }
 

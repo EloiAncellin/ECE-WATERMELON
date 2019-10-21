@@ -26,10 +26,9 @@ class AddCard extends Component {
     handleUserInput = (e) => {
         const name = e.target.name;
         const value = e.target.value;
-        this.setState({[name]: value},
-            () => {
-                this.validateField(name, value)
-            });
+        this.setState({[name]: value}, () => {
+            this.validateField(name, value)
+        });
         localStorage.setItem(name, value);
     };
 
@@ -55,6 +54,7 @@ class AddCard extends Component {
             default:
                 break;
         }
+
         this.setState({
             formErrors: fieldValidationErrors,
             marqueValid: marqueValid,
@@ -79,18 +79,16 @@ class AddCard extends Component {
         let maxId = getMaxIdCards() + 1;
         let userCards = getCards().result;
         let last_four = this.state.numbers.substr(this.state.numbers.length -4);
-        const card =
-            {
-                id: maxId,
-                last_four: last_four,
-                brand: this.state.marque,
-                expires_at: this.state.endDate,
-                user_id: getUserFromStorage().result.id
-            };
+        const card = {
+            id: maxId,
+            last_four: last_four,
+            brand: this.state.marque,
+            expires_at: this.state.endDate,
+            user_id: getUserFromStorage().result.id
+        };
         userCards.push(card);
         saveCardsToStorage(userCards);
         this.props.history.push('/Cartes');
-
     }
 
     render() {

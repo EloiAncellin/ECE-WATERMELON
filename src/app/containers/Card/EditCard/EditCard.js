@@ -36,10 +36,9 @@ class EditCard extends Component {
     handleUserInput = (e) => {
         const name = e.target.name;
         const value = e.target.value;
-        this.setState({[name]: value},
-            () => {
-                this.validateField(name, value)
-            });
+        this.setState({[name]: value}, () => {
+            this.validateField(name, value)
+        });
         localStorage.setItem(name, value);
     };
 
@@ -65,6 +64,7 @@ class EditCard extends Component {
             default:
                 break;
         }
+
         this.setState({
             formErrors: fieldValidationErrors,
             marqueValid: marqueValid,
@@ -91,13 +91,12 @@ class EditCard extends Component {
 
     }
 
-    goToCards(){
+    goToCards() {
         this.props.history.push('/Cartes');
     }
 
     render() {
         return (
-
             <Form className="demoForm">
                 <h2>Modifier une carte</h2>
                 <h3>{this.state.card.brand}</h3>

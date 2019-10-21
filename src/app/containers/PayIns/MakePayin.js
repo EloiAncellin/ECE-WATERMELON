@@ -10,7 +10,6 @@ import Button from "reactstrap/es/Button";
 import Input from "reactstrap/es/Input";
 import {doPayIn} from "../../../services/api/mock/server";
 
-
 class MakePayIn extends Component {
     constructor(props) {
         super(props);
@@ -41,9 +40,9 @@ class MakePayIn extends Component {
     handleUserInput = (e) => {
         const name = e.target.name;
         let value;
-        if(e.target.value>=0){
+        if(e.target.value>=0) {
             value = e.target.value;
-        }else{
+        } else {
             value = 0;
         }
         this.setState({[name]: value});

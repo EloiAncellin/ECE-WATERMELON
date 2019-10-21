@@ -68,12 +68,9 @@ class Cards extends Component {
                 <Button className="offset-1" onClick={() => {
                     this.goToAddCard()
                 }}>Ajouter une carte</Button>
-
             </div>
         );
     }
-
-
 }
 
 export default Cards;

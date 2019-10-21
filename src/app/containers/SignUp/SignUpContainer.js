@@ -84,7 +84,6 @@ class SignUpContainer extends Component {
         const usr = createUser(this.state.email, this.state.firstName, this.state.lastName, this.state.password);
         localStorage.setItem('user', JSON.stringify(usr));
         return(<Redirect to='/menu'/>)
-
     }
 
     render() {

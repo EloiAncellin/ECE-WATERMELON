@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
-
 import {getUserFromStorage} from "../../services/storageService";
 import Connect from "./Connect";
 import Header from "./Header/Header";
-
 
 class GlobalRouter extends Component {
     constructor(props) {
@@ -30,11 +28,8 @@ class GlobalRouter extends Component {
             )
         } else {
             return (<Connect/>);
-
         }
-
     }
-
 }
 
 export default GlobalRouter;

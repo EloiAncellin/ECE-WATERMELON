@@ -23,10 +23,9 @@ class Login extends Component {
     handleUserInput = (e) => {
         const name = e.target.name;
         const value = e.target.value;
-        this.setState({[name]: value},
-            () => {
-                this.validateField(name, value)
-            });
+        this.setState({[name]: value}, () => {
+            this.validateField(name, value)
+        });
         localStorage.setItem(name,value);
     };
 
@@ -47,12 +46,12 @@ class Login extends Component {
             default:
                 break;
         }
+
         this.setState({
             formErrors: fieldValidationErrors,
             emailValid: emailValid,
             passwordValid: passwordValid
         }, this.validateForm);
-
     }
 
     validateForm() {
@@ -63,7 +62,7 @@ class Login extends Component {
         return (error.length === 0 ? '' : 'has-error');
     }
 
-    onSubmit(){
+    onSubmit() {
         const email = localStorage.getItem('email');
         const password = localStorage.getItem('password');
         const user = authenticate(email, password);

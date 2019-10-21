@@ -11,9 +11,7 @@ import CardTitle from "reactstrap/es/CardTitle";
 import CardSubtitle from "reactstrap/es/CardSubtitle";
 import "./../../styles/menu.css";
 
-
 class Menu extends Component {
-
     constructor(props) {
         super(props);
         this.props = props;
@@ -25,7 +23,6 @@ class Menu extends Component {
         };
         this.props = props;
         try {
-
             this.state.user = getUserFromStorage();
 
             if (this.state.user.status === "success") {
@@ -64,7 +61,7 @@ class Menu extends Component {
     goToCards() {
         this.props.history.push('/Cartes');
     }
-    goToDepot(){
+    goToDepot() {
         this.props.history.push('/Transfert');
     }
 

@@ -1,12 +1,9 @@
 import React from 'react';
 
-
 class SignUp extends React.Component {
     constructor(props) {
         super(props);
-
     }
-
 
     render(){
         return(
@@ -14,8 +11,7 @@ class SignUp extends React.Component {
                 bonjour
             </div>
         );
-}
-
+    }
 }
 
 export default SignUp;
