@@ -3,7 +3,7 @@ export function redirectIfNotAuth(props){
         if(user === null || user=== undefined){
                 props.history.push('/login');
 
-        }else{
+        } else {
                 return true;
         }
 }

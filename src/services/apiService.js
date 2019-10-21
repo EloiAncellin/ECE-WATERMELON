@@ -1,6 +1,5 @@
 import * as mock from './api/mock/server.js'
 
-
 export function getWallet(userId){
     return mock.getUserWallet(userId);
 }

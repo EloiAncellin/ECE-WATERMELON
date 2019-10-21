@@ -10,7 +10,7 @@ export function getUserFromStorage() {
         if (user === null) {
             return failure(null);
         }
-    } catch (e) {
+    } catch(e) {
         return failure(null);
     }
 
@@ -24,7 +24,7 @@ export function getWalletFromStorage() {
         if (wallet.id) {
             return success(wallet);
         }
-    } catch (e) {
+    } catch(e) {
         return failure(null);
     }
 
@@ -40,7 +40,7 @@ export function getCardFormStorage() {
         } else {
             return success(cards);
         }
-    } catch (e) {
+    } catch(e) {
         return failure(null);
     }
 
@@ -53,7 +53,7 @@ export function getPayInsFormStorage() {
         if (payIns[0].id) {
             return success(payIns);
         }
-    } catch (e) {
+    } catch(e) {
         return failure(null);
     }
 
@@ -66,7 +66,7 @@ export function getPayOutsFormStorage() {
         if (payOuts[0].id) {
             return success(payOuts);
         }
-    } catch (e) {
+    } catch(e) {
         return failure(null);
     }
 
@@ -121,4 +121,3 @@ export function disconnect(props) {
     localStorage.clear();
     props.history.push('/login');
 }
-

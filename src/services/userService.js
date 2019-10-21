@@ -12,28 +12,28 @@ import {
 } from "./storageService";
 import {createCards, createPayIns, createWallet, createPayOuts} from "./createData";
 
-export function saveUserToStorage(user){
+export function saveUserToStorage(user) {
         //let user =  authenticate('toto1@ece.fr', 'toto1');
         localStorage.setItem('user', user);
         return true;
 }
 
-export function disconnect(props){
+export function disconnect(props) {
         localStorage.clear();
         props.history.push('/login');
 }
 
-export function getWallet(){
+export function getWallet() {
         const wallet = getWalletFromStorage();
-        if(wallet.status === "success"){
+        if(wallet.status === "success") {
                 return success(wallet.result);
-        }else{
+        } else {
                 const user = getUserFromStorage();
-                if(user.status==="success"){
+                if(user.status==="success") {
                         let userwallet = getUserWallet(user.result.id);
-                        if(userwallet.status==="success"){
+                        if(userwallet.status==="success") {
                                 return success(userwallet.result);
-                        }else{
+                        } else {
                                 return success(createWallet(user));
                         }
 
@@ -41,17 +41,17 @@ export function getWallet(){
         }
 }
 
-export function getCards(){
+export function getCards() {
         const cards = getCardFormStorage();
-        if(cards.status === "success"){
+        if(cards.status === "success") {
                 return success(cards.result);
-        }else{
+        } else {
                 const user = getUserFromStorage();
-                if(user.status==="success"){
+                if(user.status==="success") {
                         let userCards = getUserCards(user.result.id);
-                        if(userCards.status === "success"){
+                        if(userCards.status === "success") {
                                 return success(userCards.result)
-                        }else{
+                        } else {
                                 return success(createCards());
                         }
                 }
@@ -60,34 +60,34 @@ export function getCards(){
 }
 
 
-export function getUserPayIns(){
+export function getUserPayIns() {
         const payIns = getPayInsFormStorage();
-        if(payIns.status === "success"){
+        if(payIns.status === "success") {
                 return success(payIns.result);
-        }else{
+        } else {
                 const user = getUserFromStorage();
-                if(user.status==="success"){
+                if(user.status==="success") {
                         let payIns = getPayIns(user.result.id);
-                        if(payIns.status==="success"){
+                        if(payIns.status==="success") {
                                 return success(payIns.result);
-                        }else{
+                        } else {
                                 return success(createPayIns(user));
                         }
                 }
         }
 }
 
-export function getUserPayOuts(){
+export function getUserPayOuts() {
         const payIns = getPayOutsFormStorage();
-        if(payIns.status === "success"){
+        if(payIns.status === "success") {
                 return success(payIns.result);
-        }else{
+        } else {
                 const user = getUserFromStorage();
-                if(user.status==="success"){
+                if(user.status==="success") {
                         let payOuts = getPayOuts(user.result.id);
-                        if(payIns.status==="success"){
+                        if(payIns.status==="success") {
                                 return success(payOuts.result);
-                        }else{
+                        } else {
                                 return success(createPayOuts(user));
                         }
 
@@ -98,15 +98,15 @@ export function getUserPayOuts(){
 
 
 
-export function deleteCard(cardId){
+export function deleteCard(cardId) {
         let cards = getCards().result;
 
-        for(let card of cards){
-                if(card.id === cardId){
+        for(let card of cards) {
+                if(card.id === cardId) {
                         const index = cards.findIndex( (element) => {
                                 return element.id === cardId;
                         });
-                        cards.splice(index,1);
+                        cards.splice(index, 1);
                         saveCardsToStorage(cards);
                         return success(cards);
                 }
